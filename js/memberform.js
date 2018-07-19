@@ -14,6 +14,11 @@
           scrollTop: ($('.messages.error').first().parent().offset().top)
         },500);
       }
+      else {
+        $('html, body').animate({
+          scrollTop: ($('h3').first().parent().offset().top)
+        },500);
+      }
     }
   };
 })(jQuery, Drupal);
