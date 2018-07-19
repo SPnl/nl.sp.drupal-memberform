@@ -4,7 +4,7 @@
       ga('set', { page: response.path, title: response.title });
       ga('send', 'pageview');
     }
-  }
+  };
   Drupal.behaviors.memberformModule = {
     attach: function (context, settings) {
       // Code to be run on page load, and
@@ -15,5 +15,5 @@
         },500);
       }
     }
-  }
+  };
 })(jQuery, Drupal);
