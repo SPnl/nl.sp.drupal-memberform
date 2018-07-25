@@ -38,7 +38,7 @@ function memberform_spanning_settings($variable_name) {
     'path_name' => 'aanmelden/spanning',
     'form_title' => 'Aanmelden Spanning',
     'no_nav_pages' => array(
-      'quickfinish',
+      //'quickfinish',
       'thanks',
     ),
     'pages' => array(

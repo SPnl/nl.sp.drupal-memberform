@@ -38,7 +38,7 @@ function memberform_tribune_settings($variable_name) {
     'path_name' => 'aanmelden/tribune',
     'form_title' => 'Aanmelden tribune',
     'no_nav_pages' => array(
-      'quickfinish',
+      //'quickfinish',
       'thanks',
     ),
     'pages' => array(

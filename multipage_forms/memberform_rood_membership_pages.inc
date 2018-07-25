@@ -38,7 +38,7 @@ function memberform_rood_membership_settings($variable_name) {
     'path_name' => 'aanmelden/rood',
     'form_title' => 'ROOD lid worden',
     'no_nav_pages' => array(
-      'quickfinish',
+      //'quickfinish',
       'thanks',
     ),
     'pages' => array(
