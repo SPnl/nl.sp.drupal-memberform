@@ -43,7 +43,7 @@ function memberform_membership_settings($variable_name) {
       'thanks',
     ),
     'pages' => array(
-      'intro' => 'Intro titel',
+      'intro' => '',
       'start' => 'Contactgegevens',
       'quickfinish' => '',
       'person_details' => 'Persoonsgegevens',
@@ -65,7 +65,25 @@ function memberform_membership_settings($variable_name) {
  */
 function memberform_membership_page_intro_form(&$form, &$form_state) {
   $form['intro'] = array(
-    '#markup' => '<p>Inhoud van het introductie formulier element</p>',
+    '#markup' => "<div class=\"introduction\">
+<h2>Nu is de tijd!</h2>
+<p>We staan voor een fundamentele keuze. Blijven de macht en de rijkdom in handen
+van de rijkste 10% of kiezen we voor een land waar de 90% het voor het zeggen
+heeft? Blijven we kiezen voor de snelle winsten van het grote geld of kiezen
+we voor ons algemeen belang?</p>
+<p>De SP kiest voor verandering. Wij vragen geen gouden bergen: wij eisen rechtvaardigheid. Een land op basis van menselijke waardigheid, gelijkwaardigheid en solidariteit.</p>
+<p>Dat kunnen wij niet alleen. Wacht niet langer en steun ons door lid te worden. Want het is tijd voor rechtvaardigheid!</p>
+ 
+<p><strong>Als SP-lid:</strong></p>
+
+<ul>
+  <li>Steunt u onze strijd voor een rechtvaardig Nederland. Met uw bijdrage kunnen we lokale hulpdiensten oprichten, buurtinitiatieven ondersteunen en bijeenkomsten organiseren.</li>
+  <li>Krijgt u elke maand ons ledenblad De Tribune op uw deurmat</li>
+  <li>Krijgt u een mooi welkomstgeschenk: het boek van Bernie Sanders met een voorwoord van onze eigen Lilian Marijnissen of het boek van Ron Meyer</li>
+</ul>
+
+<p>U kunt al lid worden voor 5 euro per kwartaal. Ga verder en vul snel uw gegevens in.</p></div>
+",
   );
 }
 

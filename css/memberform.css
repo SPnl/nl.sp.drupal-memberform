@@ -156,6 +156,15 @@ span.field-prefix {
     color: #fff;
 }
 
+#memberform_form_wrapper .introduction h2, 
+#memberform_form_wrapper .introduction p,
+#memberform_form_wrapper .introduction ul {
+    max-width: 66%;
+    margin: auto;
+    margin-bottom: 1em;
+    font-size: 21px!important;
+}
+
 /* MEMBERFORM NAVIGATION */
 .memberform-navigation {
     text-align: center;
