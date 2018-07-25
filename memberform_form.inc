@@ -31,8 +31,16 @@ function memberform_form($form, &$form_state, $form_name) {
 
   // Set default page.
   if (empty($storage['current_page'])) {
-    $storage['current_page'] = 'start';
-    $storage['nav_history'][] = 'start';
+    switch ($form_name) {
+      case 'membership':
+        $default_page = 'intro';
+        break;
+      default:
+        $default_page = 'start';
+        break;
+    }
+    $storage['current_page'] = $default_page;
+    $storage['nav_history'][] = $default_page;
   }
 
   $form_state['validate'] = TRUE;
@@ -79,6 +87,7 @@ function memberform_form($form, &$form_state, $form_name) {
     );
     $count = 0;
     $page_names_short = array(
+      'intro' => 'Intro',
       'start' => 'Contactgegevens',
       'quickfinish' => 'Bel me',
       'person_details' => 'Persoonsgegevens',

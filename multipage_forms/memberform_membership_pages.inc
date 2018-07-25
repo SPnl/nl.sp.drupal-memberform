@@ -39,9 +39,11 @@ function memberform_membership_settings($variable_name) {
     'form_title' => 'Lid worden',
     'no_nav_pages' => array(
       //'quickfinish',
+      'intro',
       'thanks',
     ),
     'pages' => array(
+      'intro' => 'Intro titel',
       'start' => 'Contactgegevens',
       'quickfinish' => '',
       'person_details' => 'Persoonsgegevens',
@@ -56,6 +58,15 @@ function memberform_membership_settings($variable_name) {
     'feedback_page' => 'thanks'
   );
   return $settings[$variable_name];
+}
+
+/**
+ * Form definition for intro page.
+ */
+function memberform_membership_page_intro_form(&$form, &$form_state) {
+  $form['intro'] = array(
+    '#markup' => '<p>Inhoud van het introductie formulier element</p>',
+  );
 }
 
 /**

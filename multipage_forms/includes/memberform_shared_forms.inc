@@ -705,6 +705,10 @@ function memberform_shared_submit($form, &$form_state) {
   $trigger = $form_state['triggering_element']['#name'];
 
   switch ($storage['current_page']) {
+    case 'intro':
+      $storage['next_page'] = 'start';
+      break;
+
     case 'start':
       // Set form navigation.
       if (empty($values['page_start_phone'])) {
