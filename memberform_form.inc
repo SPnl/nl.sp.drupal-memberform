@@ -31,16 +31,8 @@ function memberform_form($form, &$form_state, $form_name) {
 
   // Set default page.
   if (empty($storage['current_page'])) {
-    switch ($form_name) {
-      case 'membership':
-        $default_page = 'intro';
-        break;
-      default:
-        $default_page = 'start';
-        break;
-    }
-    $storage['current_page'] = $default_page;
-    $storage['nav_history'][] = $default_page;
+    $storage['current_page'] = 'start';
+    $storage['nav_history'][] = $storage['current_page'];
   }
 
   $form_state['validate'] = TRUE;
@@ -144,6 +136,7 @@ function memberform_form($form, &$form_state, $form_name) {
       '#type' => 'submit',
       '#value' => 'Terug',
       '#name' => 'previous_page',
+      '#attributes' => array('class' => array('btn hollow previous')),
       '#ajax' => array(
         'wrapper' => 'memberform_form_wrapper',
         'callback' => 'memberform_ajax_callback',
@@ -162,6 +155,7 @@ function memberform_form($form, &$form_state, $form_name) {
       '#type' => 'submit',
       '#value' => $next_button_text,
       '#name' => 'next_page',
+      '#attributes' => array('class' => array('btn','next')),
       '#ajax' => array(
         'wrapper' => 'memberform_form_wrapper',
         'callback' => 'memberform_ajax_callback',
@@ -205,7 +199,7 @@ function memberform_form_pre_custom_validate($form, &$form_state) {
     foreach ($values as $key => $value) {
       if (isset($storage['required_fields'][$key])) {
         if (empty($value)) {
-          form_set_error($key, 'Dit veld is verplicht!');
+          form_set_error($key, 'Dit moeten we echt weten.');
         }
       }
     }

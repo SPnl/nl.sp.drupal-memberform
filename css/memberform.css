@@ -48,7 +48,7 @@
 }
 .page-aanmelden form label {
     display: block!important;
-    font-size: 1.125rem;
+    font-size: 1rem;
     font-weight: normal;
     font-family: "HelveticaNeueLTStd-BdCn", "Helvetica Neue", Helvetica, "Roboto Sans", "Segoe UI", Arial, "Lucida Grande", sans-serif;
     letter-spacing: .3px;
@@ -74,7 +74,7 @@
 .page-aanmelden .form-item .form-text {
     max-width: 100%;
     width: 100%;
-    padding: 1rem;
+    padding: .8rem;
     background: #fafafa;
     border: 1px solid #ddd;
     color: #333;
@@ -91,12 +91,14 @@
 
 .page-aanmelden .messages {
     border: 1px solid;
-    padding: .5rem 1rem;
+    padding: .7rem 1rem;
+    font-family: sans-serif;
+    margin-top: 4px;
 }
 .page-aanmelden .error {
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    color: #a94442;
+    background-color: #fff8d9;
+    border-color: #ffea8e;
+    color: #f77b00;
 }
 .page-aanmelden .info {
     background-color: #d9edf7;
@@ -156,13 +158,11 @@ span.field-prefix {
     color: #fff;
 }
 
-#memberform_form_wrapper .introduction h2, 
-#memberform_form_wrapper .introduction p,
-#memberform_form_wrapper .introduction ul {
-    max-width: 66%;
-    margin: auto;
-    margin-bottom: 1em;
-    font-size: 21px!important;
+#memberform_form_wrapper .introduction p {
+    margin: 1em auto 0 auto;
+    padding: 0;
+    font-size: 16px!important;
+    color: #333;
 }
 
 /* MEMBERFORM NAVIGATION */
@@ -237,15 +237,28 @@ span.field-prefix {
 .memberform-action {
     max-width: 480px;
     margin: 0 auto;
-    text-align: right;
     padding: 0!important; /* overwrite default spnet theme */
 }
-.memberform-action input[type="submit"]{
+.memberform-action input[type="submit"],
+.memberform-action .btn{
     padding: 1rem 2rem;
     margin-top: 1rem;
     margin-right: 0;
-    min-width: 150px;
+    min-width: 140px;
 }
+.memberform-action .btn.hollow {
+    background: #fff;
+    color: #ec1b23;
+}
+.memberform-action .btn.previous {
+    margin-right: 1em;
+}
+.btn.do-call-back {
+  padding: 1rem 2rem;
+  margin: 4rem 0;
+  font-size: 1.4rem;
+}
+
 #memberform_form_wrapper .memberform-inform-button {
   text-align: center;
 }
@@ -261,4 +274,55 @@ span.field-prefix {
 .memberform-action #edit-next-page--2, {
     max-width: 329px;
     width: 100%;
+}
+
+
+@media only screen and (max-width: 768px) {
+    .page-aanmelden .primary-content {
+      padding-top: 0;
+    }
+    .page-aanmelden .content-header .title {
+      color: #ec1b23 !important;
+      font-size: 1.4rem;
+    }
+    .page-aanmelden .site-navigation {
+      display: none;
+    }
+    .page-aanmelden form h3 {
+      font-size: 1rem;
+    }
+    .page-aanmelden .form-item .form-text {
+      padding: .6rem .4rem .4rem .4rem;
+    }
+    .page-aanmelden .site-logo a {
+      height: 32px !important;
+      width: 60px !important;
+    }
+    .page-aanmelden form fieldset {
+      padding: 0 .72em 0 .72em !important;
+    }
+    .page-aanmelden .memberform-navigation {
+      padding: 0;
+      margin: 0 0 1em 0;
+
+    }
+    .page-aanmelden .memberform-navigation .form-submit {
+      margin: 2px;
+      font-size: 14px;
+      background: #fff;
+    }
+    .page-aanmelden-lid .content-header .title:before {
+      content: 'T';
+      font-family: 'SPnet-icons';
+      display: inline-block; 
+      padding: 0;
+      margin-right: .5rem;
+      font-size: 1.6em;
+      line-height: 0;
+      vertical-align: -6px;
+    }
+    .page-aanmelden .site-header {
+      display: none;
+    }
+
 }

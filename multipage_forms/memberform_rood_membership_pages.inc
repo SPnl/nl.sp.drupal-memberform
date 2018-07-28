@@ -36,7 +36,7 @@
 function memberform_rood_membership_settings($variable_name) {
   $settings = array(
     'path_name' => 'aanmelden/rood',
-    'form_title' => 'ROOD lid worden',
+    'form_title' => 'Lid worden van ROOD',
     'no_nav_pages' => array(
       //'quickfinish',
       'thanks',
@@ -62,6 +62,9 @@ function memberform_rood_membership_settings($variable_name) {
  * Form definition for start page.
  */
 function memberform_rood_membership_page_start_form(&$form, &$form_state) {
+  $form['intro'] = array(
+    '#markup' => "<div class=\"introduction\"><p>Iedereen die <em>14 jaar of ouder</em> is kan lid worden van ROOD, jong in de SP. Vul hieronder je contactgegevens in. We gebruiken deze gegevens voor je inschrijving en om je op de hoogte te houden van nieuws en activiteiten van ROOD en de SP. Meer informatie lees je in het <a href=\"https://www.sp.nl/privacy\">privacyreglement</a> van de SP.</p></div>",
+  );
   memberform_shared_page_start_form($form, $form_state);
 }
 

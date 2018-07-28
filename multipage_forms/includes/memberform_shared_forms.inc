@@ -40,10 +40,14 @@ function memberform_shared_page_start_form(&$form, &$form_state) {
  */
 function memberform_shared_page_quickfinish_form(&$form, &$form_state) {
   if (count($form_state['storage']['nav_history']) < 3) {
+    $form['action']['instruction'] = array(
+      '#markup' => '<p>U kunt zelf het formulier invullen, of als u weinig tijd hebt, kunnnen wij u bellen om de aanmelding in orde te maken.</p>'
+    );
     $form['action']['next_page'] = array(
       '#type' => 'submit',
-      '#value' => 'Ik vul mijn gegevens meteen zelf in',
+      '#value' => 'Ik vul mijn gegevens zelf in',
       '#name' => 'next_page',
+      '#attributes' => array('class' => array('btn hollow do-self')),
       '#ajax' => array(
         'wrapper' => 'memberform_form_wrapper',
         'callback' => 'memberform_ajax_callback',
@@ -52,6 +56,7 @@ function memberform_shared_page_quickfinish_form(&$form, &$form_state) {
     $form['action']['call_back'] = array(
       '#type' => 'submit',
       '#value' => 'Bel me om lid te worden',
+      '#attributes' => array('class' => array('btn do-call')),
       '#name' => 'call_back',
       '#ajax' => array(
         'wrapper' => 'memberform_form_wrapper',
@@ -60,12 +65,13 @@ function memberform_shared_page_quickfinish_form(&$form, &$form_state) {
     );
   }
   else {
-    $form['input']['intro'] = array(
-      '#markup' => '<p>Komt u er niet uit, klik dan op de bel knop hieronder en we bellen u om uw aanmelding af te ronden.',
+    $form['input']['instructions'] = array(
+      '#markup' => '<p>Komt u er niet uit, of heeft u geen tijd voor het afronden? Geen probleem. Klik op de bel knop hieronder en we bellen u binnenkort om uw aanmelding af te ronden.</p>',
     );
     $form['input']['call_back'] = array(
       '#type' => 'submit',
       '#value' => 'Bel me',
+      '#attributes' => array('class' => array('btn do-call-back')),
       '#name' => 'call_back',
       '#ajax' => array(
         'wrapper' => 'memberform_form_wrapper',
@@ -87,7 +93,7 @@ function memberform_shared_page_call_back_feedback(&$form, &$form_state) {
   );
 
   $form['feedback']['call_back_feedback'] = array(
-      '#markup' => '<p>Bedankt voor je aanmedling als lid van de SP! We bellen je binnenkort om de aanmelding af te ronden.</p>',
+      '#markup' => '<p>Wat goed dat je lid wilt worden van de SP! We bellen je binnenkort om de aanmelding af te ronden. Mocht je in de tussentijd vragen hebben kun je altijd contact opnemen met de ledenadminisrtatie van de SP.</p>',
   );
 }
 
@@ -336,10 +342,10 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
     '#title' => 'Kwartaalbijdrage',
     '#type' => 'radios',
     '#options' => array(
-      '50' => '50,-',
-      '20' => '20,-',
-      '10' => '10,-',
       '5' => '5,-',
+      '10' => '10,-',
+      '20' => '20,-',
+      '50' => '50,-',
       'custom' => 'Anders',
     ),
     '#required' => TRUE,
@@ -707,7 +713,7 @@ function memberform_shared_submit($form, &$form_state) {
   switch ($storage['current_page']) {
     case 'intro':
       $storage['next_page'] = 'start';
-      break;
+    break;
 
     case 'start':
       // Set form navigation.

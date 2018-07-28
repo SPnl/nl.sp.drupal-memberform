@@ -9,16 +9,18 @@
     attach: function (context, settings) {
       // Code to be run on page load, and
       // on ajax load added here
-      if ( $( ".messages.error" ).first().length ) {
-        $('html, body').animate({
-          scrollTop: ($('.messages.error').first().parent().offset().top)
-        },500);
+
+      // Determine scroll 
+      var scrollPos = $('h1').first().offset().top;
+  
+      if(( $( ".messages.error" ).first().length)) {
+        scrollPos = $('.messages.error').first().parent().offset().top;
+      } else {
+        if($( ".memberform-navigation" ).length) {
+          scrollPos = $('.memberform-navigation').offset().top;
+        }
       }
-      else {
-        $('html, body').animate({
-          scrollTop: ($('h3').first().parent().offset().top)
-        },500);
-      }
+      $('html, body').animate({ scrollTop: scrollPos },300);
     }
   };
 })(jQuery, Drupal);
