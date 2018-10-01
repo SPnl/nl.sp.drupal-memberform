@@ -220,6 +220,7 @@ function memberform_form_post_custom_validate($form, &$form_state) {
   }
 
   // Make sure form data is stored on ajax callback.
+  /*
   if (empty($storage['sid'])) {
     $sid = db_insert('memberform_submissions')
     ->fields(array(
@@ -228,6 +229,7 @@ function memberform_form_post_custom_validate($form, &$form_state) {
     ->execute();
     $storage['sid'] = $sid;
   }
+  */
 
   // Store data.
   memberform_store_form_data($storage);
