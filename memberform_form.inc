@@ -67,7 +67,8 @@ function memberform_form($form, &$form_state, $form_name) {
   if (file_exists($file_path)) {
     global $base_url;
     $form['header'] = array(
-      '#markup' => '<div class="form_header"><img src="' . $base_url . '/' . drupal_get_path('module', 'memberform') . '/header_images/' . $storage['current_page'] . '.jpg" /></div>',
+      //'#markup' => '<div class="form_header"><img src="' . $base_url . '/' . drupal_get_path('module', 'memberform') . '/header_images/' . $storage['current_page'] . '.jpg" /></div>',
+      '#markup' => '<div class="form_header"><img src="' . $base_url . '/' . drupal_get_path('module', 'memberform') . '/header_images/lilian-marijnissen-banner.jpg" /></div>',
     );
   }
 
