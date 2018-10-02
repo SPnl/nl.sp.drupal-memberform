@@ -741,3 +741,24 @@ function memberform_memberships() {
   );
   return $memberships;
 }
+
+// Haal een lijst van landcodes en country ID's op
+function memberform_get_country_ids() {
+
+  return memberform_cache_data('spaanmelden_country_ids', function () {
+
+    $api = spciviapi_get_api();
+    try {
+      $api->Constant->Get([
+        'name'       => 'countryIsoCode',
+        'sequential' => 0,
+      ]);
+      $codes = $api->result();
+      if($codes)
+      return (array)$codes->values;
+
+    } catch (\Exception $e) {
+      return false;
+    }
+  });
+}
