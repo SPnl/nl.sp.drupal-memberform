@@ -202,8 +202,8 @@ function memberform_clean_amount($amount) {
 /**
  * Returns unique hash.
  */
-function memberform_get_hash($membership_type, $name) {
-  return md5($membership_type . $name . time());
+function memberform_get_hash() {
+  return md5(openssl_random_pseudo_bytes(6) . time());
 }
 
 /**

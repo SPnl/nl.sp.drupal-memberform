@@ -220,16 +220,17 @@ function memberform_form_post_custom_validate($form, &$form_state) {
   }
 
   // Make sure form data is stored on ajax callback.
-  /*
   if (empty($storage['sid'])) {
+    $hash = memberform_get_hash();
     $sid = db_insert('memberform_submissions')
     ->fields(array(
+      'hash' => $hash,
       'created' => REQUEST_TIME,
     ))
     ->execute();
     $storage['sid'] = $sid;
+    $storage['hash'] = $hash;
   }
-  */
 
   // Store data.
   memberform_store_form_data($storage);
@@ -347,6 +348,7 @@ function memberform_clear_form(&$form_state) {
     $number = db_delete('memberform_storage')
     ->condition('sid', $form_state['storage']['sid'])
     ->execute();
+    unset($form_state['storage']['sid']);
   }
   unset($_SESSION['memberform']);
   //unset($form_state['storage']); Removed because it breaks google analytics in ajax callback.

@@ -153,6 +153,13 @@ function memberform_shared_page_person_details_form(&$form, &$form_state) {
     '#required' => TRUE,
     '#date_label_position' => 'within',
   );
+
+  $form['input']['page_person_details_gender'] = array(
+    '#title'         => 'Geslacht',
+    '#type'          => 'radios',
+    '#options'       => array('m' => 'Man', 'v' => 'Vrouw', 'a' => 'Anders'),
+    '#required'      => TRUE,
+  );
 }
 
 /**
@@ -732,7 +739,7 @@ function memberform_shared_submit($form, &$form_state) {
       $storage['values']['person_details']['page_person_details_first_name'] = $split_name['first_name'];
       $storage['values']['person_details']['page_person_details_middle_name'] = $split_name['middle_name'];
       $storage['values']['person_details']['page_person_details_last_name'] = $split_name['last_name'];
-      $storage['hash'] = empty($storage['hash']) ? memberform_get_hash($storage['membership_type'], $values['page_start_name']) : $storage['hash'];
+      $storage['hash'] = empty($storage['hash']) ? memberform_get_hash() : $storage['hash'];
       $storage['created'] = empty($storage['created']) ? time() : $storage['created'];
       break;
 
@@ -869,7 +876,7 @@ function memberform_store_submission($form_state) {
     'firstname' => _hv($values['person_details']['page_person_details_first_name']),
     'middlename' => _hv($values['person_details']['page_person_details_middle_name']),
     'lastname' => _hv($values['person_details']['page_person_details_last_name']),
-    'gender' => '',
+    'gender' => _hv($values['person_details']['page_person_details_gender']),
     'birthdate' => _hv($values['person_details']['page_person_details_birth_date']),
     'email' => _hv($values['start']['page_start_email']),
     'phone' => $phone,

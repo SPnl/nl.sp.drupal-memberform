@@ -37,7 +37,6 @@ function memberform_intern_settings($variable_name) {
   $settings = array(
     'path_name' => 'aanmelden/intern',
     'form_title' => 'Aanmelden intern',
-    'no_nav_pages' => array(),
     'pages' => array(
       'start' => '',
     ),
@@ -107,6 +106,13 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
     '#date_year_range' => '-14:-120',
     '#required' => TRUE,
     '#date_label_position' => 'within',
+  );
+
+  $form['input_person_details']['page_start_gender'] = array(
+    '#title'         => 'Geslacht',
+    '#type'          => 'radios',
+    '#options'       => array('m' => 'Man', 'v' => 'Vrouw', 'a' => 'Anders'),
+    '#required'      => TRUE,
   );
 
   // Address form.
@@ -611,7 +617,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
     'firstname' => _hv($values['page_start_first_name']),
     'middlename' => _hv($values['page_start_middle_name']),
     'lastname' => _hv($values['page_start_last_name']),
-    'gender' => '',
+    'gender' => _hv($values['page_start_gender']),
     'birthdate' => _hv($values['page_start_birth_date']),
     'email' => _hv($values['page_start_email']),
     'phone' => $phone,
@@ -655,20 +661,20 @@ function memberform_intern_page_form_submit($form, &$form_state) {
     $fields['payment_method'] = _hv($values['page_start_contribution_payment_method']);
     // Lid SP and ROOD.
     if ($membership_type['lid_sp'] && $membership_type['lid_rood']) {
-      $hash = empty($storage['hash']) ? memberform_get_hash('lid_sprood', $name) : $storage['hash'];
+      $hash = empty($storage['hash']) ? memberform_get_hash() : $storage['hash'];
       $fields['membership_type'] = 'lid_sprood';
       $fields['welcome_present_sp'] = _hv($values['page_start_select_lid_sp']);
       $fields['welcome_present_rood'] = _hv($values['page_start_select_lid_rood']);
     }
     // Lid SP.
     elseif ($membership_type['lid_sp']) {
-      $hash = empty($storage['hash']) ? memberform_get_hash('lid_sp', $name) : $storage['hash'];
+      $hash = empty($storage['hash']) ? memberform_get_hash() : $storage['hash'];
       $fields['membership_type'] = 'lid_sp';
       $fields['welcome_present_sp'] = _hv($values['page_start_select_lid_sp']);
     }
     // Lid ROOD.
     elseif ($membership_type['lid_rood']) {
-      $hash = empty($storage['hash']) ? memberform_get_hash('lid_rood', $name) : $storage['hash'];
+      $hash = empty($storage['hash']) ? memberform_get_hash() : $storage['hash'];
       $fields['membership_type'] = 'lid_rood';
       $fields['welcome_present_rood'] = _hv($values['page_start_select_lid_rood']);
     }
@@ -680,7 +686,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
     $fields['welcome_present_rood'] = '';
     // Lid Tribune.
     if ($membership_type['tribune']) {
-      $hash = empty($storage['hash']) ? memberform_get_hash('tribune', $name) : $storage['hash'];
+      $hash = empty($storage['hash']) ? memberform_get_hash() : $storage['hash'];
       $fields['membership_type'] = 'tribune';
       $payment_info = explode('_', $values['page_start_tribune_payment_method']);
       $fields['contribution'] = _hv(memberform_clean_amount($payment_info[1]));
@@ -689,7 +695,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
     }
     // Lid Spanning.
     if ($membership_type['spanning']){
-      $hash = empty($storage['hash']) ? memberform_get_hash('spanning', $name) : $storage['hash'];
+      $hash = empty($storage['hash']) ? memberform_get_hash() : $storage['hash'];
       $fields['membership_type'] = 'spanning';
       $payment_info = explode('_', $values['page_start_spanning_payment_method']);
       $fields['contribution'] = _hv(memberform_clean_amount($payment_info[1]));
@@ -700,7 +706,6 @@ function memberform_intern_page_form_submit($form, &$form_state) {
 
   // Clear form history.
   memberform_clear_form($form_state);
-
   drupal_set_message('Aanmelding is opgeslagen');
 }
 
@@ -744,6 +749,7 @@ function memberform_intern_set_defaults(&$form_state) {
       'middlename' => 'middle_name',
       'lastname' => 'last_name',
       'birthdate' => 'birth_date',
+      'gender' => 'gender',
       'email' => 'email',
       'phone' => 'phone',
       'phone_mobile' => 'phone',
