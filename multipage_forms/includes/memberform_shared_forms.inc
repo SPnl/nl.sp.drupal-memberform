@@ -616,6 +616,13 @@ function memberform_shared_validation($form, &$form_state) {
       case 'address':
         $values['page_address_street'] = $form_state['input']['page_address_street'];
         $values['page_address_locality'] = $form_state['input']['page_address_locality'];
+        if ($values['page_address_country'] === 'NL') {
+          // Cleanup postal code.
+          if(preg_match('/^([1-9][0-9]{3})\s?([a-zA-Z]{2})$/', $values['page_address_postal_code'], $number_parts)) {
+            $values['page_address_postal_code'] = $number_parts[1] . ' ' . strtoupper($number_parts[2]);
+            //$storage['values']['address']['page_address_postal_code'] = $number_parts[1] . ' ' . strtoupper($number_parts[2]);
+          }
+        }
         $checks = array(
           'postal_code' => array(
             'regex' => '/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/',
@@ -639,9 +646,6 @@ function memberform_shared_validation($form, &$form_state) {
           unset($checks['postal_code']);
         }
         foreach ($checks as $key => $check) {
-          if (in_array($key, array('postal_code'))) {
-            $values['page_address_' . $key] = str_replace(' ', '', $values['page_address_' . $key]);
-          }
           if (!preg_match($check['regex'], $values['page_address_' . $key])) {
             form_set_error('page_address_' . $key, $check['message']);
           }
