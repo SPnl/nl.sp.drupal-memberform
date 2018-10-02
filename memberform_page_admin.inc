@@ -30,6 +30,13 @@ function memberform_admin_settings_form() {
     '#title' => '<p>CiviCRM instellingen.</p>',
   );
 
+  $form['memberform_settings_civicrm']['memberform_id_lid_sp'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'ID lidmaatschap SP',
+    '#default_value' => variable_get('memberform_id_lid_sp', 1),
+    '#required'      => true,
+  );
+
   $form['memberform_settings_civicrm']['memberform_id_fintype_sp'] = array(
     '#type' => 'textfield',
     '#title' => 'ID financieel type SP',
