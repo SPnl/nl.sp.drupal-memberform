@@ -118,6 +118,14 @@ function memberform_form($form, &$form_state, $form_name) {
     );
   }
 
+  // Add messages.
+  $output = theme_status_messages();
+  if (!empty($output)) {
+    $form['messages'] = array(
+      '#markup' => $output,
+    );
+  }
+
   // Get pages forms.
   $form_callback = 'memberform_' . $form_name . '_page_' . $storage['current_page'] . '_form';
   if (function_exists($form_callback)) {
