@@ -10,17 +10,22 @@
       // Code to be run on page load, and
       // on ajax load added here
 
-      // Determine scroll 
+      // Determine scroll
       var scrollPos = $('h1').first().offset().top;
-  
+
       if(( $( ".messages.error" ).first().length)) {
         scrollPos = $('.messages.error').first().parent().offset().top;
+        $('html, body').animate({ scrollTop: scrollPos },300);
       } else {
-        if($( ".memberform-navigation" ).length) {
-          scrollPos = $('.memberform-navigation').offset().top;
+        // Check if new page.
+        path = window.location.pathname;
+        if(!path.includes('aanmelden/intern')) {
+          if($( ".memberform-navigation" ).length) {
+            scrollPos = $('.memberform-navigation').offset().top;
+            $('html, body').animate({ scrollTop: scrollPos },300);
+          }
         }
       }
-      $('html, body').animate({ scrollTop: scrollPos },300);
     }
   };
 })(jQuery, Drupal);
