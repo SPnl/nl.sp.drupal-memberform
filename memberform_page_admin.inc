@@ -234,10 +234,15 @@ function memberform_view_submissions() {
     $form_page_title = '';
     if (!empty($s->form)) {
       $page_settings_callback = 'memberform_' . $s->form . '_settings';
+      $pages = $page_settings_callback('pages');
       $form_title = $page_settings_callback('form_title');
       if (!empty($s->form_page)) {
-        $pages = $page_settings_callback('pages');
-        $form_page_title = $pages[$s->form_page];
+        if ($s->form_page === 'quickfinish') {
+          $form_page_title = 'Terugbellen';
+        }
+        else {
+          $form_page_title = $pages[$s->form_page];
+        }
       }
     }
     $data[] = array(
