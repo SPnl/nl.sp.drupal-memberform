@@ -516,6 +516,14 @@ function memberform_intern_page_form_validate($form, &$form_state) {
         $values['page_start_street'] = $form_state['input_address']['page_start_street'];
         $values['page_start_locality'] = $form_state['input_address']['page_start_locality'];
 
+        // Format postal code.
+        if ($values['page_start_country'] === 'NL') {
+          // Cleanup postal code.
+          if(preg_match('/^([1-9][0-9]{3})\s?([a-zA-Z]{2})$/', $values['page_start_postal_code'], $number_parts)) {
+            $values['page_start_postal_code'] = $number_parts[1] . ' ' . strtoupper($number_parts[2]);
+          }
+        }
+
         $checks = array(
           'postal_code' => array(
             'regex' => '/^[1-9][0-9]{3}\s?[a-zA-Z]{2}$/',
