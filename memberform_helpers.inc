@@ -617,6 +617,30 @@ function memberform_get_reminder_mail(&$message, $params) {
 }
 
 /**
+ * Defines call back mail.
+ */
+function memberform_get_call_back_mail(&$message, $params) {
+
+  if (!$params['hash']) {
+    throw new \Exception('Params hash missing.');
+  }
+
+  $descr = memberform_membership_description($params['membership_type']);
+
+  global $base_url;
+  $intern_form_url = $base_url . '/aanmelden/intern/' . $params['form_state']['storage']['sid'];
+
+  $name = $params['form_state']['storage']['values']['start']['page_start_name'];
+  $phone = $params['form_state']['storage']['values']['start']['page_start_phone'];
+  $message['subject'] = 'Lid worden formulier terugbellen ' . $name . ': ' . $phone;
+  $message['body'] = [];
+  $message['body'][] = '<p>' . $name . ' heeft zich aangemeld als ' . $descr . ' en wil teruggebeld worden om e.e.a. af te ronden.</p>';
+  $message['body'][] = '<p><strong>' . $descr . '<br/>' . $name  . '<br/>' . $phone . '</strong></p>';
+  $message['body'][] = '<p>' . l('Afronden aanmelding', $intern_form_url, array('target' => '_blank')) . '</p>';
+  $message['body'][] = '<p>(automatisch gegenereerd bericht)</p>';
+}
+
+/**
  * Beschrijving ontbreekt.
  */
 function memberform_get_qline() {

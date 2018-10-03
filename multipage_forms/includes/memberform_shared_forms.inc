@@ -833,8 +833,9 @@ function memberform_shared_submit($form, &$form_state) {
   }
 
   $fields = $store_result['fields'];
+
+  // Send confirmation mail when submitting summary page.
   if ($storage['current_page'] == 'summary' && !empty($fields['email']) && $trigger === 'next_page') {
-    // Send confirmation mail when submitting summary page.
     $mail = drupal_mail(
       'memberform', 'verificatie', $fields['email'], LANGUAGE_NONE,
       array(
@@ -847,6 +848,22 @@ function memberform_shared_submit($form, &$form_state) {
     if (empty($mail['send'])) {
       $storage['next_page'] = $storage['current_page'];
       drupal_set_message('Het is niet gelukt om de bevestigingsmail te versturen. Houdt dit probleem aan, neem dan contact op met webmaster@sp.nl', 'error');
+    }
+  }
+
+  // Send call back mail to administration when submitting quickfinish form to call back.
+  if ($storage['current_page'] == 'quickfinish' && $trigger === 'call_back') {
+    $mail = drupal_mail(
+      'memberform', 'call_back', 'administratie@sp.nl', LANGUAGE_NONE,
+      array(
+        'form_state'      => $form_state,
+        'hash'            => $storage['hash'],
+        'membership_type' => $fields['membership_type'],
+        'format'          => SWIFTMAILER_FORMAT_HTML,
+      )
+    );
+    if (empty($mail['send'])) {
+      watchdog('memberform', 'Versturen van terugbelmelding aan administratie@sp.nl is mislukt.');
     }
   }
 }
