@@ -541,6 +541,7 @@ function memberform_send_reminders() {
   $unverified = db_select('memberform_submissions', 's')
     ->fields('s')
     ->condition('created', time() - 86400, '<')
+    ->condition('form_page', 'summary')
     ->isNull('verified')
     ->isNull('reminded')
     ->execute();
