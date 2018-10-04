@@ -386,8 +386,8 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
       '#type' => 'radios',
       '#required' => TRUE,
       '#options' => array(
-        'auto' => 'Automatische incasso',
-        'accept' => 'Acceptgiro',
+        'incasso' => 'Automatische incasso',
+        'acceptgiro' => 'Acceptgiro',
       ),
       '#name' => 'page_start_contribution_payment_method',
       '#ajax' => array(
@@ -406,8 +406,8 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
       switch ($membership) {
         case 'tribune':
           $options = array(
-            'auto_5' => 'Automatische incasso, € 5 per kwartaal',
-            'accept_24' => 'Acceptgiro, € 24 per jaar',
+            'incasso_5' => 'Automatische incasso, € 5 per kwartaal',
+            'acceptgiro_24' => 'Acceptgiro, € 24 per jaar',
           );
           $form['input_contribution']['page_start_tribune_payment_method'] = array(
             '#title' => 'Betalingsgegevens Tribune',
@@ -424,14 +424,14 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
         case 'spanning':
           if ($is_member) {
             $options = array(
-              'auto_12' => 'Automatische incasso, € 12 per jaar (niet leden betalen € 20)',
-              'accept_12' => 'Acceptgiro, € 12 per jaar (niet leden betalen € 24)',
+              'incasso_12' => 'Automatische incasso, € 12 per jaar (niet leden betalen € 20)',
+              'acceptgiro_12' => 'Acceptgiro, € 12 per jaar (niet leden betalen € 24)',
             );
           }
           else {
             $options = array(
-              'auto_20' => 'Automatische incasso € 20 (€ 12 voor leden)',
-              'accept_24' => 'Acceptgiro € 24 (€ 12 voor leden)',
+              'incasso_20' => 'Automatische incasso € 20 (€ 12 voor leden)',
+              'acceptgiro_24' => 'Acceptgiro € 24 (€ 12 voor leden)',
             );
           }
           $form['input_contribution']['page_start_spanning_payment_method'] = array(
@@ -456,17 +456,17 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
         $values['start']['page_start_membership_type']['lid_sp'] ||
         $values['start']['page_start_membership_type']['lid_rood']
       ) && (
-        $values['start']['page_start_contribution_payment_method'] === 'auto'
+        $values['start']['page_start_contribution_payment_method'] === 'incasso'
       )
     ) || (
       $values['start']['page_start_membership_type']['tribune'] &&
-      $values['start']['page_start_tribune_payment_method'] === 'auto_5'
+      $values['start']['page_start_tribune_payment_method'] === 'incasso_5'
     ) || (
       (
         $values['start']['page_start_membership_type']['spanning']
       ) && (
-        $values['start']['page_start_spanning_payment_method'] === 'auto_12' ||
-        $values['start']['page_start_spanning_payment_method'] === 'auto_20'
+        $values['start']['page_start_spanning_payment_method'] === 'incasso_12' ||
+        $values['start']['page_start_spanning_payment_method'] === 'incasso_20'
       )
     )
   ) {
@@ -563,9 +563,9 @@ function memberform_intern_page_form_validate($form, &$form_state) {
           }
         }
         if (
-          $values['page_start_contribution_payment_method'] === 'auto' ||
-          strpos($values['page_start_tribune_payment_method'], 'auto') === 0 ||
-          strpos($values['page_start_spanning_payment_method'], 'auto') === 0
+          $values['page_start_contribution_payment_method'] === 'incasso' ||
+          strpos($values['page_start_tribune_payment_method'], 'incasso') === 0 ||
+          strpos($values['page_start_spanning_payment_method'], 'incasso') === 0
         ) {
           if ($values['page_start_country'] === 'NL') {
             $iban = strtoupper($values['page_start_iban']);

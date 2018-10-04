@@ -378,8 +378,8 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
     '#type' => 'radios',
     '#required' => TRUE,
     '#options' => array(
-      'auto' => 'Automatische incasso',
-      'accept' => 'Acceptgiro',
+      'incasso' => 'Automatische incasso',
+      'acceptgiro' => 'Acceptgiro',
     ),
     '#name' => 'page_contribution_payment_method',
     '#ajax' => array(
@@ -389,18 +389,18 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
     '#attributes' => array('class' => array('memberform-radio-button')),
   );
 
-  $form['input']['page_contribution_accept_costs'] = array(
+  $form['input']['page_contribution_acceptgiro_costs'] = array(
     '#type' => 'container',
     '#states' => array(
       'visible' => array(
         ':input[name="page_contribution_payment_method"]' => array(
-          'value' => 'accept',
+          'value' => 'acceptgiro',
         ),
       ),
     ),
   );
 
-  $form['input']['page_contribution_accept_costs']['accept_consts_message'] = array(
+  $form['input']['page_contribution_acceptgiro_costs']['acceptgiro_consts_message'] = array(
     '#markup' => '<p><strong>Let op! De kosten voor betaling via acceptgiro bedragen 6 euro per kwartaal.</strong></p>',
   );
 
@@ -408,7 +408,7 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
     '#title' => 'Wat is je bankrekeningnummer?',
     '#type' => 'textfield',
   );
-  if ($storage['values']['contribution']['page_contribution_payment_method'] === 'accept') {
+  if ($storage['values']['contribution']['page_contribution_payment_method'] === 'acceptgiro') {
     $form['input']['page_contribution_iban']['#required'] = FALSE;
     unset($storage['required_fields']['page_contribution_iban']);
   }
@@ -429,22 +429,22 @@ function memberform_shared_page_payment_form(&$form, &$form_state) {
     case 'spanning':
       if ($is_member) {
         $options = array(
-          'auto_12' => 'Automatische incasso, € 12 per jaar (niet leden betalen € 20)',
-          'accept_12' => 'Acceptgiro, € 12 per jaar (niet leden betalen € 24)',
+          'incasso_12' => 'Automatische incasso, € 12 per jaar (niet leden betalen € 20)',
+          'acceptgiro_12' => 'Acceptgiro, € 12 per jaar (niet leden betalen € 24)',
         );
       }
       else {
         $options = array(
-          'auto_20' => 'Automatische incasso, € 20 per jaar (€ 12 voor leden)',
-          'accept_24' => 'Acceptgiro, € 24 per jaar (€ 12 voor leden)',
+          'incasso_20' => 'Automatische incasso, € 20 per jaar (€ 12 voor leden)',
+          'acceptgiro_24' => 'Acceptgiro, € 24 per jaar (€ 12 voor leden)',
         );
       }
       break;
 
     case 'tribune':
       $options = array(
-        'auto_5' => 'Automatische incasso, € 5 per kwartaal',
-        'accept_24' => 'Acceptgiro, € 24 per jaar',
+        'incasso_5' => 'Automatische incasso, € 5 per kwartaal',
+        'acceptgiro_24' => 'Acceptgiro, € 24 per jaar',
       );
       break;
   }
