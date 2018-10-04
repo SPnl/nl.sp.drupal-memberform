@@ -687,6 +687,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
       $fields['welcome_present_rood'] = _hv($values['page_start_select_lid_rood']);
     }
     memberform_intern_store_db($form_state, $hash, $fields);
+    unset($storage['hash']);
   }
   // Lid Tribune of Spanning.
   if ($membership_type['tribune'] || $membership_type['spanning']) {
@@ -700,6 +701,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
       $fields['contribution'] = _hv(memberform_clean_amount($payment_info[1]));
       $fields['payment_method'] = _hv($payment_info[0]);
       memberform_intern_store_db($form_state, $hash, $fields);
+      unset($storage['hash']);
     }
     // Lid Spanning.
     if ($membership_type['spanning']){
@@ -709,6 +711,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
       $fields['contribution'] = _hv(memberform_clean_amount($payment_info[1]));
       $fields['payment_method'] = _hv($payment_info[0]);
       memberform_intern_store_db($form_state, $hash, $fields);
+      unset($storage['hash']);
     }
   }
 
