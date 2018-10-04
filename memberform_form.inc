@@ -228,7 +228,7 @@ function memberform_form_post_custom_validate($form, &$form_state) {
   }
 
   // Make sure form data is stored on ajax callback.
-  if (empty($storage['sid'])) {
+  if (empty($storage['sid']) && empty(drupal_get_messages('error', FALSE))) {
     $hash = memberform_get_hash();
     $sid = db_insert('memberform_submissions')
     ->fields(array(
