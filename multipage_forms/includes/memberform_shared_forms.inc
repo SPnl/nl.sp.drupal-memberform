@@ -590,10 +590,8 @@ function memberform_shared_validation($form, &$form_state) {
         }
         // Validate name.
         $words_in_name = str_word_count($values['page_start_name'], 1);
-        foreach ($words_in_name as $word) {
-          if (strlen($word) < 2) {
-            form_set_error('page_start_name', 'Vul uw volledige naam in, en niet slechts uw voorletter(s)');
-          }
+        if (strlen(array_shift($words_in_name)) < 2) {
+          form_set_error('page_start_name', 'Vul uw volledige naam in, en niet slechts uw voorletter(s)');
         }
         break;
 
@@ -606,10 +604,8 @@ function memberform_shared_validation($form, &$form_state) {
             'last' => 'achternaam',);
           foreach ($name_types as $name_type => $name_type_display) {
             $words_in_name = str_word_count($values['page_person_details_' . $name_type . '_name'], 1);
-            foreach ($words_in_name as $word) {
-              if (strlen($word) < 2) {
-                form_set_error('page_person_details_' . $name_type . '_name', 'Vul uw volledige ' . $name_type_display . ' in, en niet slechts letter(s)');
-              }
+            if (strlen(array_shift($words_in_name)) < 2) {
+              form_set_error('page_person_details_' . $name_type . '_name', 'Vul uw volledige ' . $name_type_display . ' in, en niet slechts letter(s)');
             }
           }
           // Validate age.

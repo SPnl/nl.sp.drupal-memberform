@@ -223,12 +223,16 @@ function memberform_form_post_custom_validate($form, &$form_state) {
   $storage = &$form_state['storage'];
 
   // Store values.
+  $form_value_found = FALSE;
   foreach ($values as $key => $value) {
     $storage['values'][$storage['current_page']][$key] = $value;
+    if (strpos($key, 'page_') !== FALSE && !empty($value)) {
+      $form_value_found = TRUE;
+    }
   }
 
   // Make sure form data is stored on ajax callback.
-  if (empty($storage['sid']) && empty(drupal_get_messages('error', FALSE))) {
+  if (empty($storage['sid']) && $form_value_found) {
     $hash = memberform_get_hash();
     $sid = db_insert('memberform_submissions')
     ->fields(array(
