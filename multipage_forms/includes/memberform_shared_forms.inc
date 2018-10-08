@@ -600,7 +600,6 @@ function memberform_shared_validation($form, &$form_state) {
           // Validate names.
           $name_types = array(
             'first' => 'voornaam',
-            'middle' => 'tussenvoegsel',
             'last' => 'achternaam',);
           foreach ($name_types as $name_type => $name_type_display) {
             $words_in_name = str_word_count($values['page_person_details_' . $name_type . '_name'], 1);
