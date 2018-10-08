@@ -426,6 +426,7 @@ function memberform_add_membership($data = []) {
   ];
   if ($data['payment_method'] == 'incasso' && $data['bank_account']) {
     $membership_data['new_mandaat'] = 1;
+    $membership_data['mandaat_status'] = 'RCUR';
     $membership_data['mandaat_datum'] = date('Ymdhis', $data['verified']);
     $membership_data['mandaat_plaats'] = ($data['city'] ? $data['city'] : '[Onbekend]');
   }
