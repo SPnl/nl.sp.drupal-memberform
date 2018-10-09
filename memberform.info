@@ -6,6 +6,7 @@ package = sprbs
 
 dependencies[] = sprbs
 dependencies[] = spciviapi
+dependencies[] = spcivipush
 dependencies[] = media
 dependencies[] = elements
 dependencies[] = date_popup

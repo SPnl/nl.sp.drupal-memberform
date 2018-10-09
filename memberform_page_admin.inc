@@ -198,10 +198,10 @@ function memberform_admin_settings_form() {
     '#required' => TRUE,
   );
 
-  $form['spaanmelden_id_custom_reden_lidmaatschap'] = array(
+  $form['memberform_id_custom_reden_lidmaatschap'] = array(
     '#type'          => 'textfield',
     '#title'         => 'Veldnaam reden lidmaatschap',
-    '#default_value' => variable_get('spaanmelden_id_custom_reden_lidmaatschap', 'custom_218'),
+    '#default_value' => variable_get('memberform_id_custom_reden_lidmaatschap', 'custom_218'),
     '#required'      => true,
   );
 

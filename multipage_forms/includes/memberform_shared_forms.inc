@@ -725,6 +725,9 @@ function memberform_shared_submit($form, &$form_state) {
       // Set form navigation.
       if (empty($values['page_start_phone'])) {
         $storage['next_page'] = 'person_details';
+        if (($key = array_search('quickfinish', $storage['nav_history'])) !== false) {
+          unset($storage['nav_history'][$key]);
+        }
       }
       else {
         $storage['next_page'] = 'quickfinish';

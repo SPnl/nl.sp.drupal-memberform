@@ -65,7 +65,7 @@ function memberform_membership_settings($variable_name) {
  */
 function memberform_membership_page_start_form(&$form, &$form_state) {
   $form['intro'] = array(
-    '#markup' => "<div class=\"introduction\"><p>Iedereen die <em>16 jaar of ouder</em> is kan lid worden van de SP. Vul hieronder uw contactgegevens in. We gebruiken deze gegevens voor uw inschrijving en om u te informeren over nieuws en actiteiten van de SP. Meer informatie staat in ons <a href=\"https://www.sp.nl/privacy\" target=\"_blank\">privacy reglement</a></p></div>",
+    '#markup' => "<div class=\"introduction\"><p>Iedereen die <em>16 jaar of ouder</em> is kan lid worden van de SP. Vul hieronder uw contactgegevens in. We gebruiken deze gegevens voor uw inschrijving en om u te informeren over nieuws en activiteiten van de SP. Meer informatie staat in ons <a href=\"https://www.sp.nl/privacy\" target=\"_blank\">privacy reglement</a></p></div>",
   );
   memberform_shared_page_start_form($form, $form_state);
 }
