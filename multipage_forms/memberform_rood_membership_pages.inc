@@ -160,7 +160,7 @@ function memberform_rood_membership_page_thanks_form(&$form, &$form_state) {
       break;
     case 'summary':
       $form['feedback']['thanks'] = array(
-        '#markup' => '<p>Welkom bij ROOD ' . check_plain($name) . '! Je ontvangt zo een e-mail met daarin een link die je moet aanklikken om de aanmelding te bevestigen.</p><p>Heb je vagen over het lidmaatschap of gegevens? Neem dan contact op met onze <a href="https://www.sp.nl/contact/partijbureau">ledenadministratie</a></p>',
+        '#markup' => '<p>Welkom bij ROOD ' . check_plain($name) . '! Je ontvangt zo een e-mail met daarin een link die je moet aanklikken om de aanmelding te bevestigen.</p><p>Heb je vragen over het lidmaatschap of gegevens? Neem dan contact op met onze <a href="https://www.sp.nl/contact/partijbureau">ledenadministratie</a></p>',
       );
       break;
   }
