@@ -168,7 +168,6 @@ function memberform_shared_page_person_details_form(&$form, &$form_state) {
 function memberform_shared_page_red_form(&$form, &$form_state) {
   $storage = $form_state['storage'];
 
-
   $form['input'] = array(
     '#type' => 'fieldset',
     '#attributes' => array('class' => array('memberform-input')),
@@ -199,7 +198,7 @@ function memberform_shared_page_red_form(&$form, &$form_state) {
  * Form definition for address page.
  */
 function memberform_shared_page_address_form(&$form, &$form_state) {
-  $storage = $form_state['storage'];
+  $storage = &$form_state['storage'];
 
   $form['input'] = array(
     '#type' => 'fieldset',
@@ -284,6 +283,7 @@ function memberform_shared_page_address_form(&$form, &$form_state) {
             $form['input']['page_address_house_number']['#field_suffix'] = empty($form['input']['page_address_house_number']['#field_suffix']) ? $message : $form['input']['page_address_house_number']['#field_suffix'] . $message;
             $form['input']['page_address_street']['#value'] = '';
             $form['input']['page_address_locality']['#value'] = '';
+            $storage['address_fixed'] = TRUE;
           }
           else {
             // Set values.
@@ -764,8 +764,14 @@ function memberform_shared_submit($form, &$form_state) {
           $storage['next_page'] = 'red';
         }
         elseif ($age <= 27) {
-          $storage['membership_type'] = '';
-          $storage['next_page'] = 'red';
+          if ($storage['form_name'] === 'rood_membership') {
+            $storage['membership_type'] = 'sp_and_red_member';
+            $storage['next_page'] = 'red';
+          }
+          else {
+            $storage['membership_type'] = '';
+            $storage['next_page'] = 'red';
+          }
         }
         else {
           $storage['next_page'] = 'address';

@@ -79,21 +79,22 @@ function memberform_rood_membership_page_quickfinish_form(&$form, &$form_state) 
  * Form definition for red membership page.
  */
 function memberform_rood_membership_page_red_form(&$form, &$form_state) {
-  memberform_shared_page_red_form($form, $form_state);
+  $storage = $form_state['storage'];
   $form['input'] = array(
     '#type' => 'fieldset',
     '#attributes' => array('class' => array('memberform-input')),
   );
 
-  $form['input']['page_red_membership'] = array(
-    '#title' => 'Rood lidmaatschap',
-    '#type' => 'radios',
-    '#options' => array(
-      'sp_and_red_member' => 'Ja, ik wil ook lid worden van de SP worden!',
-      'red_member' => 'Nee, ik wil alleen lid worden van ROOD',
-    ),
-    '#required' => TRUE,
-  );
+  if ($storage['membership_type'] == 'red_member') {
+    $form['input']['page_only_red'] = array(
+      '#markup' => '<p>Omdat je nog geen 16 bent wordt je lid van ROOD, de actiefste jongerenorganisatie van Nederland. Zodra je 16 bent kan je ook lid worden van de SP.</p><p>Samen met jongeren gaan we de strijd aan voor een betere wereld. We zijn niet bang om onrecht, discriminatie en ongelijkheid te bestrijden waar dat moet gebeuren.</p>',
+    );
+  }
+  else {
+    $form['input']['page_red_intro'] = array(
+      '#markup' => '<p>Omdat je 16 of ouder bent wordt je lid van ROOD, de actiefste jongerenorganisatie van Nederland en de SP.</p><p><strong>ROOD is de actiefste jongerenorganisatie van Nederland</strong></p><p>Samen met jongeren gaan we de strijd aan voor een betere wereld. We zijn niet bang om onrecht, discriminatie en ongelijkheid te bestrijden waar dat moet gebeuren.</p>',
+    );
+  }
 }
 
 /**
