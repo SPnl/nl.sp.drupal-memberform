@@ -589,7 +589,7 @@ function memberform_shared_validation($form, &$form_state) {
           form_set_error('page_start_phone', 'Geef tenminste een e-mailadres of telefoonnummer op zodat we je kunnen bereiken.');
         }
         // Validate name.
-        $words_in_name = str_word_count($values['page_start_name'], 1);
+        $words_in_name = explode(' ', $values['page_start_name']);
         if (strlen(array_shift($words_in_name)) < 2) {
           form_set_error('page_start_name', 'Vul uw volledige naam in, en niet slechts uw voorletter(s)');
         }
@@ -602,7 +602,7 @@ function memberform_shared_validation($form, &$form_state) {
             'first' => 'voornaam',
             'last' => 'achternaam',);
           foreach ($name_types as $name_type => $name_type_display) {
-            $words_in_name = str_word_count($values['page_person_details_' . $name_type . '_name'], 1);
+            $words_in_name = explode(' ', $values['page_person_details_' . $name_type . '_name']);
             if (strlen(array_shift($words_in_name)) < 2) {
               form_set_error('page_person_details_' . $name_type . '_name', 'Vul uw volledige ' . $name_type_display . ' in, en niet slechts letter(s)');
             }
