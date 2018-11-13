@@ -401,7 +401,7 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
   );
 
   $form['input']['page_contribution_acceptgiro_costs']['acceptgiro_consts_message'] = array(
-    '#markup' => '<p><strong>Let op! De kosten voor betaling via acceptgiro bedragen 6 euro per kwartaal.</strong></p>',
+    '#markup' => '<p><strong>Let op! De kosten voor betaling via acceptgiro bedragen 1 euro per kwartaal.</strong></p>',
   );
 
   $form['input']['page_contribution_iban'] = array(
