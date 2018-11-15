@@ -60,8 +60,9 @@ function memberform_page_validate($hash) {
         ->execute();
 
       if ($exec) {
-        $output = '<div class="lid-worden-bedankt content"><h1>Aanmelding bevestigd</h1><p>Bedankt voor het bevestigen van je gegevens. Je aanmelding wordt zo spoedig mogelijk verwerkt door onze ledenadministratie.</p><p>Zou je ons nog willen vertellen waarom je lid bent geworden?</p>';
+        $output = '<div class="lid-worden-bedankt content"><h1>Aanmelding bevestigd</h1><p>Bedankt voor het bevestigen van je gegevens. Je aanmelding wordt zo spoedig mogelijk verwerkt door onze ledenadministratie.</p>';
         if (in_array($record['membership_type'], array('lid_rood', 'lid_sprood', 'lid_sp'))) {
+          $output .= '<p>Zou je ons nog willen vertellen waarom je lid bent geworden?</p>';
           $output .= drupal_render(drupal_get_form('memberform_page_validate_question_form', $record));
         }
         $output .= memberform_get_qline() . '</div>';
