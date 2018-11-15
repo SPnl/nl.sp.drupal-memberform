@@ -473,6 +473,7 @@ function memberform_send_reminders() {
     ->fields('s')
     ->condition('created', time() - 86400, '<')
     ->condition('form_page', 'summary')
+    ->isNotNull('email')
     ->isNull('verified')
     ->isNull('reminded')
     ->execute();
