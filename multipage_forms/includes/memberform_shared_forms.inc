@@ -389,6 +389,7 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
     '#attributes' => array('class' => array('memberform-radio-button')),
   );
 
+
   $form['input']['page_contribution_acceptgiro_costs'] = array(
     '#type' => 'container',
     '#states' => array(
@@ -404,16 +405,18 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
     '#markup' => '<p><strong>Let op! De kosten voor betaling via acceptgiro bedragen 1 euro per kwartaal.</strong></p>',
   );
 
-  $form['input']['page_contribution_iban'] = array(
-    '#title' => 'Wat is je bankrekeningnummer?',
-    '#type' => 'textfield',
-  );
-  if ($storage['values']['contribution']['page_contribution_payment_method'] === 'acceptgiro') {
-    $form['input']['page_contribution_iban']['#required'] = FALSE;
-    unset($storage['required_fields']['page_contribution_iban']);
-  }
-  else {
-    $form['input']['page_contribution_iban']['#required'] = TRUE;
+  if (!empty($storage['values']['contribution']['page_contribution_payment_method'])) {
+    $form['input']['page_contribution_iban'] = array(
+      '#title' => 'Wat is je bankrekeningnummer?',
+      '#type' => 'textfield',
+    );
+    if ($storage['values']['contribution']['page_contribution_payment_method'] === 'acceptgiro') {
+      $form['input']['page_contribution_iban']['#required'] = FALSE;
+      unset($storage['required_fields']['page_contribution_iban']);
+    }
+    else {
+      $form['input']['page_contribution_iban']['#required'] = TRUE;
+    }
   }
 }
 
