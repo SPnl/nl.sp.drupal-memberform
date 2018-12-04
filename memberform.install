@@ -192,6 +192,14 @@ function memberform_schema() {
         'type' => 'text',
         'not null' => FALSE,
       ),
+      'ref_campaign'               => array(
+        'type'   => 'varchar',
+        'length' => 64,
+      ),
+      'ref_source'               => array(
+        'type'   => 'varchar',
+        'length' => 64,
+      ),
     ),
     'primary key' => array(
       'id',
@@ -297,4 +305,15 @@ function memberform_update_7005() {
  */
 function memberform_update_7006() {
   db_drop_field('memberform_storage', 'hash');
+}
+
+/**
+ * Adds reference fields to memberfrom_submissions.
+ */
+function memberform_update_7007() {
+  $schema = memberform_schema();
+  $spec = $schema['memberform_submissions']['fields']['ref_campaign'];
+  db_add_field('memberform_submissions', 'ref_campaign', $spec);
+  $spec = $schema['memberform_submissions']['fields']['ref_source'];
+  db_add_field('memberform_submissions', 'ref_source', $spec);
 }

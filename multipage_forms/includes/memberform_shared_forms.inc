@@ -927,6 +927,8 @@ function memberform_store_submission($form_state) {
     'note' => NULL,
     'form' => $storage['form_name'],
     'form_page' => $storage['current_page'],
+    'ref_campaign' => _hv($storage['ref_campaign']),
+    'ref_source' => _hv($storage['ref_source']),
   );
 
   db_merge('memberform_submissions')

@@ -652,6 +652,8 @@ function memberform_intern_page_form_submit($form, &$form_state) {
     'note' => NULL,
     'form' => $storage['form_name'],
     'form_page' => $storage['current_page'],
+    'ref_campaign' => _hv($storage['ref_campaign']),
+    'ref_source' => _hv($storage['ref_source']),
   );
 
   // Set values dependent on membership type.

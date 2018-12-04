@@ -390,6 +390,12 @@ function memberform_add_membership($data = []) {
     $welkomstbrief_field = variable_get('memberform_id_custom_welkomstbrief');
     $membership_data[$welkomstbrief_field] = 0;
 
+    $membership_ref_source_field = variable_get('memberform_id_custom_lidmaatschap_referentie_bron');
+    $membership_data[$membership_ref_source_field] = $data['ref_source'];
+
+    $membership_ref_campaign_field = variable_get('memberform_id_custom_lidmaatschap_referentie_campagne');
+    $membership_data[$membership_ref_campaign_field] = $data['ref_campaign'];
+
     $res = $spcivi->api('Membership', 'spcreate', $membership_data);
 
     if (!$res || $res['is_error']) {

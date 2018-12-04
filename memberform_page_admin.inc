@@ -198,10 +198,24 @@ function memberform_admin_settings_form() {
     '#required' => TRUE,
   );
 
-  $form['memberform_id_custom_reden_lidmaatschap'] = array(
+  $form['memberform_settings_civicrm']['memberform_id_custom_reden_lidmaatschap'] = array(
     '#type'          => 'textfield',
     '#title'         => 'Veldnaam reden lidmaatschap',
     '#default_value' => variable_get('memberform_id_custom_reden_lidmaatschap', 'custom_218'),
+    '#required'      => true,
+  );
+
+  $form['memberform_settings_civicrm']['memberform_id_custom_lidmaatschap_referentie_campagne'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Referentie campagne lidmaatschap',
+    '#default_value' => variable_get('memberform_id_custom_lidmaatschap_referentie_campagne', 'custom_231'),
+    '#required'      => true,
+  );
+
+  $form['memberform_settings_civicrm']['memberform_id_custom_lidmaatschap_referentie_bron'] = array(
+    '#type'          => 'textfield',
+    '#title'         => 'Referentie bron lidmaatschap',
+    '#default_value' => variable_get('memberform_id_custom_lidmaatschap_referentie_bron', 'custom_232'),
     '#required'      => true,
   );
 

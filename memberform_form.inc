@@ -35,6 +35,19 @@ function memberform_form($form, &$form_state, $form_name) {
     $storage['nav_history'][] = $storage['current_page'];
   }
 
+  // Store reference.
+  foreach (array('ref_campaign', 'ref_source') as $var) {
+    $url_params = drupal_get_query_parameters();
+    if (!empty($url_params[$var])) {
+      if (empty($storage[$var])) {
+        $value = $url_params[$var];
+        if (preg_match('/^[a-z_\-0-9]{3,48}$/', $value)) {
+          $storage[$var] = $value;
+        }
+      }
+    }
+  }
+
   $form_state['validate'] = TRUE;
 
   // Create form based on form page.
