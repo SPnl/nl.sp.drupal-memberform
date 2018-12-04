@@ -41,7 +41,7 @@ function memberform_form($form, &$form_state, $form_name) {
     if (!empty($url_params[$var])) {
       if (empty($storage[$var])) {
         $value = $url_params[$var];
-        if (preg_match('/^[a-z_\-0-9]{3,48}$/', $value)) {
+        if (preg_match('/^[a-zA-Z_\-0-9]{3,48}$/', $value)) {
           $storage[$var] = $value;
         }
       }
