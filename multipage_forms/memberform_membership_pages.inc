@@ -45,7 +45,7 @@ function memberform_membership_settings($variable_name) {
     'pages' => array(
       // 'intro' => '',
       'start' => 'Contactgegevens',
-      'quickfinish' => '',
+      //'quickfinish' => '',
       'person_details' => 'Persoonsgegevens',
       'red' => 'ROOD lidmaatschap',
       'address' => 'Adresgegevens',
