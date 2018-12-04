@@ -135,6 +135,7 @@ function memberform_submit_pending() {
  * Discription missing.
  */
 function memberform_friendly_field_data($key, $value, $activity = FALSE) {
+  $value = check_plain($value);
   switch ($key) {
     case 'hash':
       return [NULL, NULL];
@@ -231,6 +232,12 @@ function memberform_friendly_field_data($key, $value, $activity = FALSE) {
 
     case 'submitted':
       return ['Toegevoegd', $value ? date('d-m-Y H:i:s', $value) : '-'];
+
+    case 'ref_campaign':
+      return ['Ref: campagne', $value];
+
+    case 'ref_source':
+      return ['Ref: bron', $value];
 
     case 'contact_id':
       if ($value > 0 && !$activity) {

@@ -236,6 +236,8 @@ function memberform_view_submissions() {
     'submitted' => 'Toegevoegd',
     'form' => 'Formulier',
     'form_page' => 'Ingevuld t/m',
+    'ref_campaign' => 'Campagne',
+    'ref_source' => 'Bron',
     'options' => 'Opties',
   );
 
@@ -268,6 +270,8 @@ function memberform_view_submissions() {
       'submitted' => ($s->errormsg ? date('d-m-Y H:i', $s->submitted) . ' - <span style="color:#c00;font-weight:bold;">ERROR</span>' : ($s->submitted ? date('d-m-Y H:i', $s->submitted) . ' - <span style="color:#0c0;font-weight:bold;">' . ($s->contact_id ? $s->contact_id : 'OK') . '</span>' : '-')),
       'form' => $form_title,
       'form_page' => $form_page_title,
+      'ref_campaign' => check_plain($s->ref_campaign),
+      'ref_source' => check_plain($s->ref_source),
       'options' => '<ul><li>' . l(t('Details'), 'admin/config/sp/aanmelden/submission/' . $s->id, array('attributes' => array('target' => '_blank'))) . '</li><li>' . l(t('Bewerk'), 'aanmelden/intern/' . $s->id, array('attributes' => array('target' => '_blank'))) . '</li></ul>',
     );
   }
