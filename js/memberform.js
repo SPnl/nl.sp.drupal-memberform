@@ -19,7 +19,7 @@
       } else {
         // Check if new page.
         path = window.location.pathname;
-        if(!path.includes('aanmelden/intern')) {
+        if(path.indexOf('aanmelden/intern') == -1) {
           if($( ".memberform-navigation" ).length) {
             scrollPos = $('.memberform-navigation').offset().top;
             $('html, body').animate({ scrollTop: scrollPos },300);
