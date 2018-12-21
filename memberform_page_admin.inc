@@ -54,7 +54,7 @@ function memberform_admin_settings_form() {
   $form['memberform_settings_civicrm']['memberform_id_fintype_sprood'] = array(
     '#type' => 'textfield',
     '#title' => 'ID financieel type SP en ROOD',
-    '#default_value' => variable_get('memberform_id_fintype_sp', 7),
+    '#default_value' => variable_get('memberform_id_fintype_sprood', 7),
     '#required' => TRUE,
   );
 
