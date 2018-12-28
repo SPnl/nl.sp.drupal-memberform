@@ -35,6 +35,11 @@ function memberform_form($form, &$form_state, $form_name) {
     $storage['nav_history'][] = $storage['current_page'];
   }
 
+  // Store params.
+  if (empty($storage['params'])) {
+    $storage['params'] = $_GET;
+  }
+
   // Store reference.
   foreach (array('ref_campaign', 'ref_source') as $var) {
     $url_params = drupal_get_query_parameters();
@@ -387,6 +392,9 @@ function memberform_modify_form_elements(&$item, &$form_state, $key) {
       // Add default values.
       if (isset($storage['values'][$storage['current_page']][$key])) {
         $item['#default_value'] = $storage['values'][$storage['current_page']][$key];
+      }
+      elseif (!empty($storage['params'][$key])) {
+        $item['#default_value'] = $storage['params'][$key];
       }
       else {
         if (empty($item['#default_value'])) {
