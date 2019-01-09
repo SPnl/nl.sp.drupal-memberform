@@ -1,6 +1,7 @@
 <?php
 
 /**
+ * @file
  * Admin forms.
  */
 
@@ -34,7 +35,7 @@ function memberform_admin_settings_form() {
     '#type'          => 'textfield',
     '#title'         => 'ID lidmaatschap SP',
     '#default_value' => variable_get('memberform_id_lid_sp', 1),
-    '#required'      => true,
+    '#required'      => TRUE,
   );
 
   $form['memberform_settings_civicrm']['memberform_id_fintype_sp'] = array(
@@ -202,21 +203,21 @@ function memberform_admin_settings_form() {
     '#type'          => 'textfield',
     '#title'         => 'Veldnaam reden lidmaatschap',
     '#default_value' => variable_get('memberform_id_custom_reden_lidmaatschap', 'custom_218'),
-    '#required'      => true,
+    '#required'      => TRUE,
   );
 
   $form['memberform_settings_civicrm']['memberform_id_custom_lidmaatschap_referentie_campagne'] = array(
     '#type'          => 'textfield',
     '#title'         => 'Referentie campagne lidmaatschap',
     '#default_value' => variable_get('memberform_id_custom_lidmaatschap_referentie_campagne', 'custom_231'),
-    '#required'      => true,
+    '#required'      => TRUE,
   );
 
   $form['memberform_settings_civicrm']['memberform_id_custom_lidmaatschap_referentie_bron'] = array(
     '#type'          => 'textfield',
     '#title'         => 'Referentie bron lidmaatschap',
     '#default_value' => variable_get('memberform_id_custom_lidmaatschap_referentie_bron', 'custom_232'),
-    '#required'      => true,
+    '#required'      => TRUE,
   );
 
   return system_settings_form($form);
@@ -226,7 +227,6 @@ function memberform_admin_settings_form() {
  * View submissions table definition.
  */
 function memberform_view_submissions() {
-
   $header = array(
     'id' => 'ID',
     'name' => 'Naam',
@@ -261,18 +261,23 @@ function memberform_view_submissions() {
         }
       }
     }
+    $options = '<ul><li>' . l(t('Details'), 'admin/config/sp/aanmelden/submission/' . $s->id, array('attributes' => array('target' => '_blank'))) . '</li><li>' . l(t('Bewerk'), 'aanmelden/intern/' . $s->id, array('attributes' => array('target' => '_blank'))) . '</li>';
+    if (empty(($s->verified))) {
+      $options .= '<li>' . l(t('Sync'), 'admin/config/sp/aanmelden/submit/' . $s->id) . '</li>';
+    }
+    $options .= '</ul>';
     $data[] = array(
       'id' => $s->id,
       'name' => ($s->firstname ? $s->firstname : $s->initials) . ' ' . ($s->middlename ? $s->middlename . ' ' : '') . $s->lastname,
       'type' => memberform_membership_description($s->membership_type, TRUE),
       'created' => date('d-m-Y H:i', $s->created),
       'verified' => ($s->verified ? date('d-m-Y H:i', $s->verified) : '-'),
-      'submitted' => ($s->errormsg ? date('d-m-Y H:i', $s->submitted) . ' - <span style="color:#c00;font-weight:bold;">ERROR</span>' : ($s->submitted ? date('d-m-Y H:i', $s->submitted) . ' - <span style="color:#0c0;font-weight:bold;">' . ($s->contact_id ? $s->contact_id : 'OK') . '</span>' : '-')),
+      'submitted' => ($s->errormsg ? date('d-m-Y H:i', $s->submitted) . ' - <span style="color:#c00;font-weight:bold;">ERROR</span>' : ($s->submitted ? date('d-m-Y H:i', $s->submitted) . ' - <span style="color:#0c0;font-weight:bold;">' . ($s->contact_id ? '<a href="/civicrm/contact/view?reset=1&cid=' . $s->contact_id . '"  target="_blank">' . $s->contact_id . '</a>' : 'OK') . '</span>' : '-')),
       'form' => $form_title,
       'form_page' => $form_page_title,
       'ref_campaign' => check_plain($s->ref_campaign),
       'ref_source' => check_plain($s->ref_source),
-      'options' => '<ul><li>' . l(t('Details'), 'admin/config/sp/aanmelden/submission/' . $s->id, array('attributes' => array('target' => '_blank'))) . '</li><li>' . l(t('Bewerk'), 'aanmelden/intern/' . $s->id, array('attributes' => array('target' => '_blank'))) . '</li></ul>',
+      'options' => $options,
     );
   }
 
@@ -561,10 +566,15 @@ function memberform_gifts_form_submit($form, &$form_state) {
 /**
  * Pending submissions submit.
  */
-function memberform_admin_submit_pending() {
+function memberform_admin_submit_pending($submission_id = NULL) {
 
-  memberform_submit_pending();
+  memberform_submit_pending($submission_id);
 
-  drupal_set_message('Wachtende inschrijvingen zijn gesynchroniseerd met CiviCRM.');
+  if (!empty($submission_id) && ctype_digit($submission_id)) {
+    drupal_set_message('Inschrijving nr ' . $submission_id . ' is gesynchroniseerd met CiviCRM.');
+  }
+  else {
+    drupal_set_message('Wachtende inschrijvingen zijn gesynchroniseerd met CiviCRM.');
+  }
   drupal_goto('admin/config/sp/aanmelden');
 }

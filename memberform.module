@@ -120,28 +120,19 @@ function memberform_menu() {
     'title'            => 'Wachtende inschrijvingen verwerken',
     'type'             => MENU_CALLBACK,
     'page callback'    => 'memberform_admin_submit_pending',
+    'page arguments'   => [5],
     'access callback'  => 'user_access',
     'access arguments' => ['access pending submissions'],
     'file'             => 'memberform_page_admin.inc',
     'weight'           => 13,
   ];
 
-  /*
-  $items['aanmelden/bedankt'] = [
-      'title'           => 'Bedankt voor je aanmelding',
-      'type'            => MENU_CALLBACK,
-      'page callback'   => 'memberform_page_thanks',
-      'access callback' => TRUE,
-      'file'            => 'memberform_page_actions.inc',
-  ];
-  */
-
   $items['aanmelden/fout'] = [
-      'title'           => 'Er is een fout opgetreden',
-      'type'            => MENU_CALLBACK,
-      'page callback'   => 'memberform_page_error',
-      'access callback' => TRUE,
-      'file'            => 'memberform_page_actions.inc',
+    'title'           => 'Er is een fout opgetreden',
+    'type'            => MENU_CALLBACK,
+    'page callback'   => 'memberform_page_error',
+    'access callback' => TRUE,
+    'file'            => 'memberform_page_actions.inc',
   ];
 
   $items['aanmelden/bevestig/%'] = [

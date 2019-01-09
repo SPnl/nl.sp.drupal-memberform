@@ -98,12 +98,29 @@ function memberform_get_formnames() {
 /**
  * Submit pending submissions.
  */
-function memberform_submit_pending() {
+function memberform_submit_pending($submission_id = NULL) {
 
-  $pending = db_select('memberform_submissions', 's')
+  $query = db_select('memberform_submissions', 's')
     ->fields('s')
     ->isNotNULL('verified')
-    ->isNULL('submitted')
+    ->isNULL('submitted');
+
+  if (!empty($submission_id) && ctype_digit($submission_id)) {
+    // Set submission confirmed.
+    db_update('memberform_submissions')
+      ->fields(
+        array(
+          'verified'  => time(),
+        ))
+      ->condition('id', $submission_id)
+      ->execute();
+
+    // Filter submission.
+    $query = $query
+      ->condition('id', $submission_id);
+  }
+
+  $pending = $query
     ->execute();
 
   if ($pending) {
