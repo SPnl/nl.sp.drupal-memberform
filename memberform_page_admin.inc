@@ -243,7 +243,13 @@ function memberform_view_submissions() {
 
   $data = array();
 
-  $submissions = db_select('memberform_submissions', 's')->fields('s')->orderBy('created', 'DESC')->execute()->fetchAll();
+  $half_year_ago_timestamp = time() - (6 * 30 * 24 * 60 * 60);
+  $submissions = db_select('memberform_submissions', 's')
+    ->fields('s')
+    ->condition('created', $half_year_ago_timestamp, '>')
+    ->orderBy('created', 'DESC')
+    ->execute()
+    ->fetchAll();
   foreach ($submissions as $s) {
 
     $form_title = '';
@@ -265,6 +271,7 @@ function memberform_view_submissions() {
     if (empty(($s->verified))) {
       $options .= '<li>' . l(t('Sync'), 'admin/config/sp/aanmelden/submit/' . $s->id) . '</li>';
     }
+    $options .= '<li>' . l(t('Verwijder'), 'admin/config/sp/aanmelden/delete/' . $s->id, array('attributes' => array('onclick' => 'return confirm("Weet je heel zeker dat je aanmelding nr. ' . $s->id . ' wilt verwijderen?")'))) . '</li>';
     $options .= '</ul>';
     $data[] = array(
       'id' => $s->id,
@@ -575,6 +582,25 @@ function memberform_admin_submit_pending($submission_id = NULL) {
   }
   else {
     drupal_set_message('Wachtende inschrijvingen zijn gesynchroniseerd met CiviCRM.');
+  }
+  drupal_goto('admin/config/sp/aanmelden');
+}
+
+/**
+ * Submission delete.
+ */
+function memberform_admin_delete_submission($submission_id = NULL) {
+
+  if (!empty($submission_id) && ctype_digit($submission_id)) {
+    $result = db_delete('memberform_submissions')
+      ->condition('id', $submission_id)
+      ->execute();
+    if ($result) {
+      drupal_set_message('Inschrijving nr ' . $submission_id . ' is verwijderd.');
+    }
+    else {
+      drupal_set_message('Inschrijving nr ' . $submission_id . ' kon niet worden verwijderd.');
+    }
   }
   drupal_goto('admin/config/sp/aanmelden');
 }

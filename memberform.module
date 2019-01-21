@@ -127,6 +127,17 @@ function memberform_menu() {
     'weight'           => 13,
   ];
 
+  $items['admin/config/sp/aanmelden/delete'] = [
+    'title'            => 'Wachtende inschrijvingen verwerken',
+    'type'             => MENU_CALLBACK,
+    'page callback'    => 'memberform_admin_delete_submission',
+    'page arguments'   => [5],
+    'access callback'  => 'user_access',
+    'access arguments' => ['access pending submissions'],
+    'file'             => 'memberform_page_admin.inc',
+    'weight'           => 14,
+  ];
+
   $items['aanmelden/fout'] = [
     'title'           => 'Er is een fout opgetreden',
     'type'            => MENU_CALLBACK,
