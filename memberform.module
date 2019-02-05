@@ -228,3 +228,12 @@ function memberform_mail($key, &$message, $params) {
       break;
   }
 }
+
+function memberform_init(){
+  $tc_expiry = 31536000;
+  if(isset($_GET['tcc'])) {
+    if(is_numeric($_GET['tcc'])) {
+      setcookie('sp_tc',$_GET['tcc'],time() + $tc_expiry);
+    }
+  }
+}
