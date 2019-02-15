@@ -518,7 +518,8 @@ function memberform_send_reminders() {
           'hash'            => $record['hash'],
           'membership_type' => $record['membership_type'],
           'format'          => SWIFTMAILER_FORMAT_HTML,
-        ]
+        ],
+        'administratie@sp.nl'
       );
 
       if (!empty($mail['send'])) {

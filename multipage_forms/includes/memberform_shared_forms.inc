@@ -850,7 +850,8 @@ function memberform_shared_submit($form, &$form_state) {
         'hash'            => $storage['hash'],
         'membership_type' => $fields['membership_type'],
         'format'          => SWIFTMAILER_FORMAT_HTML,
-      )
+      ),
+      'administratie@sp.nl'
     );
     if (empty($mail['send'])) {
       $storage['next_page'] = $storage['current_page'];
@@ -867,7 +868,8 @@ function memberform_shared_submit($form, &$form_state) {
         'hash'            => $storage['hash'],
         'membership_type' => $fields['membership_type'],
         'format'          => SWIFTMAILER_FORMAT_HTML,
-      )
+      ),
+      'administratie@sp.nl'
     );
     if (empty($mail['send'])) {
       watchdog('memberform', 'Versturen van terugbelmelding aan administratie@sp.nl is mislukt.');
