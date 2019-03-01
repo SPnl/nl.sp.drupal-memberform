@@ -9,6 +9,9 @@
  * Form constructor for the member form.
  */
 function memberform_form($form, &$form_state, $form_name) {
+  if (!empty($_GET['prefill_form'])) {
+    unset($_SESSION['memberform']);
+  }
   $values = isset($form_state['values']) ? $form_state['values'] : array();
 
   $sid = empty($form_state['storage']['sid']) ? NULL : $form_state['storage']['sid'];
