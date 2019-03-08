@@ -549,7 +549,7 @@ function memberform_get_mail(&$message, $params) {
 
   global $base_url;
   $validate_url = $base_url . '/aanmelden/bevestig/' . $params['hash'];
-
+  $message['headers']['bcc'] = 'administratie@sp.nl';
   $message['subject'] = 'Bevestig je aanmelding als ' . $descr;
   $message['body'] = [];
   $message['body'][] = '<p>Bedankt voor je aanmelding als ' . $descr . '!<br />Klik op onderstaande link om je aanmelding te bevestigen. Als je niets doet wordt je aanmelding vanzelf verwijderd.</p>';
