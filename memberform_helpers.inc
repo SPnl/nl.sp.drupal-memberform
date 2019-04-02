@@ -456,6 +456,15 @@ function memberform_add_membership($data = []) {
 
     return $contact_id;
   }
+  else {
+    if ($contact_id === 'insufficient data') {
+      $error = 'Contact in CiviCRM maken mislukt, onvoldoende data!';
+    }
+    else {
+      $error = 'Contact in CiviCRM maken is mislukt!';
+    }
+    throw new Exception($error);
+  }
 }
 
 /**
