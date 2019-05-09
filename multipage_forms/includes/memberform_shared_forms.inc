@@ -859,10 +859,23 @@ function memberform_shared_submit($form, &$form_state) {
     }
   }
 
-  // Send call back mail to administration when submitting quickfinish form to call back.
+  // Send call back mail to administration or red when submitting quickfinish form to call back.
   if ($storage['current_page'] == 'quickfinish' && $trigger === 'call_back') {
+    switch ($fields['membership_type']) {
+      case 'lid_rood':
+        $to = 'rood@sp.nl';
+        break;
+
+      case 'lid_sprood':
+        $to = 'administratie@sp.nl, rood@sp.nl';
+        break;
+
+      default:
+        $to = 'administratie@sp.nl';
+        break;
+    }
     $mail = drupal_mail(
-      'memberform', 'call_back', 'administratie@sp.nl', LANGUAGE_NONE,
+      'memberform', 'call_back', $to, LANGUAGE_NONE,
       array(
         'form_state'      => $form_state,
         'hash'            => $storage['hash'],
@@ -876,7 +889,6 @@ function memberform_shared_submit($form, &$form_state) {
     }
   }
 }
-
 
 /**
  * Store submitted values in database.
