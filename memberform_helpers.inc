@@ -613,6 +613,23 @@ function memberform_get_call_back_mail(&$message, $params) {
 }
 
 /**
+ * Defines intern mail.
+ */
+function memberform_get_intern_mail(&$message, $params) {
+
+  $descr = memberform_membership_description($params['membership_type']);
+
+  $name = $params['form_state']['storage']['name'];
+  $phone = $params['form_state']['storage']['phone'];
+  $sid = $params['form_state']['storage']['sid'];
+  $message['subject'] = 'SP aanmelden intern formulier: ' . $name . ': ' . $phone;
+  $message['body'] = [];
+  $message['body'][] = '<p>' . $name . ' is via het interne formulier aangemeld als ' . $descr . '.</p>';
+  $message['body'][] = '<p><strong>' . $descr . '<br/>' . $name  . '<br/>' . $phone . '</strong></p>';
+  $message['body'][] = '<p>(automatisch gegenereerd bericht)</p>';
+}
+
+/**
  * Beschrijving ontbreekt.
  */
 function memberform_get_qline() {
