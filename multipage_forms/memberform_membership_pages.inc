@@ -65,7 +65,7 @@ function memberform_membership_settings($variable_name) {
  */
 function memberform_membership_page_start_form(&$form, &$form_state) {
   $form['intro'] = array(
-    '#markup' => "<div class=\"introduction\"><p>Word nu lid van de SP. Dat kan al vanaf 5 euro per kwartaal. Als u zich nu aansluit is het eerste kwartaal dat u lid bent gratis. U betaalt pas vanaf 1 juli. Iedereen die <em>16 jaar of ouder</em> is kan lid worden van de SP. Vul hieronder uw contactgegevens in.</p></div>",
+    '#markup' => "<div class=\"introduction\"><p>Word nu lid van de SP. Dat kan al vanaf 5 euro per kwartaal. Als u zich nu aansluit is het eerste kwartaal dat u lid bent gratis. U betaalt pas vanaf 1 oktober. Iedereen die <em>16 jaar of ouder</em> is kan lid worden van de SP. Vul hieronder uw contactgegevens in.</p></div>",
   );
   memberform_shared_page_start_form($form, $form_state);
   $form['disclaimer'] = array(
