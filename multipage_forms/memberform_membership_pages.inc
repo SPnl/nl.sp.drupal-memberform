@@ -69,7 +69,7 @@ function memberform_membership_page_start_form(&$form, &$form_state) {
   );
   memberform_shared_page_start_form($form, $form_state);
   $form['disclaimer'] = array(
-    '#markup' => "<div class=\"introduction\"><p><small></small>We gebruiken deze gegevens voor uw inschrijving en om u te informeren over nieuws en activiteiten van de SP. Meer informatie staat in ons <a href=\"https://www.sp.nl/privacy\" target=\"_blank\">privacy reglement</a></small></p></div>",
+    '#markup' => "<div class=\"introduction\"><p><small></small>We gebruiken deze gegevens voor uw inschrijving en om u te informeren over nieuws en activiteiten van de SP. Meer informatie staat in ons <a href=\"https://www.sp.nl/privacy\" target=\"_blank\">privacy regelement</a></small></p></div>",
   );
 }
 
