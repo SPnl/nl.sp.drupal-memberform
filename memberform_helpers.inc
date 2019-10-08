@@ -307,9 +307,6 @@ function memberform_add_membership($data = []) {
         $membership_type_id = variable_get('memberform_id_lid_sp');
         $financial_type_id = variable_get('memberform_id_fintype_sp');
         $contribution = (float) $data['contribution'];
-        if ($data['payment_method'] != 'incasso') {
-          $contribution += 1;
-        }
         break;
 
       case 'lid_sprood':
