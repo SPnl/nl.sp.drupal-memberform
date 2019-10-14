@@ -281,7 +281,7 @@ function memberform_add_membership($data = []) {
     'source'       => 'Lidworden formulier',
     'street'       => $data['street'],
     'house_number' => $data['housenumber'],
-    'house_number_addition'=> $data['housenumber_suffix'],
+    'house_number_addition' => $data['housenumber_suffix'],
     'locality'             => $data['city'],
     'postal_code'          => $data['zipcode'],
     'country'              => $data['country'],
@@ -307,9 +307,6 @@ function memberform_add_membership($data = []) {
         $membership_type_id = variable_get('memberform_id_lid_sp');
         $financial_type_id = variable_get('memberform_id_fintype_sp');
         $contribution = (float) $data['contribution'];
-        if ($data['payment_method'] != 'incasso') {
-          $contribution += 1;
-        }
         break;
 
       case 'lid_sprood':
@@ -609,6 +606,23 @@ function memberform_get_call_back_mail(&$message, $params) {
   $message['body'][] = '<p>' . $name . ' heeft zich aangemeld als ' . $descr . ' en wil teruggebeld worden om e.e.a. af te ronden.</p>';
   $message['body'][] = '<p><strong>' . $descr . '<br/>' . $name  . '<br/>' . $phone . '</strong></p>';
   $message['body'][] = '<p>' . l('Afronden aanmelding', $intern_form_url, array('target' => '_blank')) . '</p>';
+  $message['body'][] = '<p>(automatisch gegenereerd bericht)</p>';
+}
+
+/**
+ * Defines intern mail.
+ */
+function memberform_get_intern_mail(&$message, $params) {
+
+  $descr = memberform_membership_description($params['membership_type']);
+
+  $name = $params['form_state']['storage']['name'];
+  $phone = $params['form_state']['storage']['phone'];
+  $sid = $params['form_state']['storage']['sid'];
+  $message['subject'] = 'SP aanmelden intern formulier: ' . $name . ': ' . $phone;
+  $message['body'] = [];
+  $message['body'][] = '<p>' . $name . ' is via het interne formulier aangemeld als ' . $descr . '.</p>';
+  $message['body'][] = '<p><strong>' . $descr . '<br/>' . $name  . '<br/>' . $phone . '</strong></p>';
   $message['body'][] = '<p>(automatisch gegenereerd bericht)</p>';
 }
 

@@ -598,10 +598,11 @@ function memberform_intern_page_form_submit($form, &$form_state) {
 
   $created = empty($storage['created']) ? time() : $storage['created'];
   $middle_name = empty($values['page_start_middle_name']) ? '' : ' ' . $values['page_start_middle_name'];
-  $name = $values['page_start_first_name'] . $middle_name . ' ' . $values['page_start_last_name'];
+  $storage['name'] = $values['page_start_first_name'] . $middle_name . ' ' . $values['page_start_last_name'];
 
   // Set mobile, or phone.
   $phone = _hv($values['page_start_phone']);
+  $storage['phone'] = empty($phone) ? 'Telefoonnummer onbekend' : $phone;
   if (preg_match('/^(((\+31|0|0031)6){1}[1-9]{1}[0-9]{7})$/', $phone)) {
     $mobile = $phone;
     $phone = NULL;
@@ -689,6 +690,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
       $fields['welcome_present_rood'] = _hv($values['page_start_select_lid_rood']);
     }
     memberform_intern_store_db($form_state, $hash, $fields);
+    memberform_intern_send_email($fields, $form_state);
     unset($storage['hash']);
   }
   // Lid Tribune of Spanning.
@@ -703,6 +705,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
       $fields['contribution'] = _hv(memberform_clean_amount($payment_info[1]));
       $fields['payment_method'] = _hv($payment_info[0]);
       memberform_intern_store_db($form_state, $hash, $fields);
+      memberform_intern_send_email($fields, $form_state);
       unset($storage['hash']);
     }
     // Lid Spanning.
@@ -713,6 +716,7 @@ function memberform_intern_page_form_submit($form, &$form_state) {
       $fields['contribution'] = _hv(memberform_clean_amount($payment_info[1]));
       $fields['payment_method'] = _hv($payment_info[0]);
       memberform_intern_store_db($form_state, $hash, $fields);
+      memberform_intern_send_email($fields, $form_state);
       unset($storage['hash']);
     }
   }
@@ -720,6 +724,21 @@ function memberform_intern_page_form_submit($form, &$form_state) {
   // Clear form history.
   memberform_clear_form($form_state);
   drupal_set_message('Aanmelding is opgeslagen');
+}
+
+function memberform_intern_send_email($fields, $form_state) {
+  $mail = drupal_mail(
+    'memberform', 'intern', 'administratie@sp.nl', LANGUAGE_NONE,
+    array(
+      'form_state'      => $form_state,
+      'membership_type' => $fields['membership_type'],
+      'format'          => SWIFTMAILER_FORMAT_HTML,
+    ),
+    'administratie@sp.nl'
+  );
+  if (empty($mail['send'])) {
+    watchdog('memberform', 'Versturen van terugbelmelding aan administratie@sp.nl is mislukt.');
+  }
 }
 
 function memberform_intern_store_db(&$form_state, $hash, $fields) {

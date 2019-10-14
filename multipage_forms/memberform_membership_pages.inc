@@ -65,7 +65,7 @@ function memberform_membership_settings($variable_name) {
  */
 function memberform_membership_page_start_form(&$form, &$form_state) {
   $form['intro'] = array(
-    '#markup' => "<div class=\"introduction\"><p>Word nu lid van de SP. Dat kan al vanaf 5 euro per kwartaal. Als u zich nu aansluit is het eerste kwartaal dat u lid bent gratis. U betaalt pas vanaf 1 juli. Iedereen die <em>16 jaar of ouder</em> is kan lid worden van de SP. Vul hieronder uw contactgegevens in.</p></div>",
+    '#markup' => "<div class=\"introduction\"><p>Word nu lid van de SP. Dat kan al vanaf 5 euro per kwartaal. Als u zich nu aansluit is het eerste kwartaal dat u lid bent gratis. U betaalt pas vanaf 1 januari 2020. Iedereen die <em>16 jaar of ouder</em> is kan lid worden van de SP. Vul hieronder uw contactgegevens in.</p></div>",
   );
   memberform_shared_page_start_form($form, $form_state);
   $form['disclaimer'] = array(
@@ -152,7 +152,7 @@ function memberform_membership_page_thanks_form(&$form, &$form_state) {
       break;
     case 'summary':
       $form['feedback']['thanks'] = array(
-        '#markup' => '<p>Bedankt ' . check_plain($name) . ' voor je aanmelding als lid van de SP. Samen werken we aan ons sociaal alternatief.</p><p>Je ontvangt zo een e-mail met daarin een link die je moet aanklikken om de aanmelding te bevestigen.</p><p>Heb je vragen over het lidmaatschap of gegevens? Neem dan contact op met onze <a href="https://www.sp.nl/contact/partijbureau">ledenadministratie</a></p>'.$fbRegistration,
+        '#markup' => '<p>Bedankt ' . check_plain($name) . ' voor je aanmelding als lid van de SP. Samen werken we aan ons sociaal alternatief.</p><p>Je ontvangt zo een e-mail met daarin een link die je moet aanklikken om de aanmelding te bevestigen.</p><p>Heb je vragen over het lidmaatschap of gegevens? Neem dan contact op met onze <a href="https://www.sp.nl/contact/partijbureau">ledenadministratie</a></p><div class="button-link"><a href="https://www.sp.nl">Naar de SP website</a></div>'.$fbRegistration,
       );
       break;
   }
