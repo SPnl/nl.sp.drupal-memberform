@@ -566,20 +566,18 @@ function memberform_get_mail(&$message, $params) {
  */
 function memberform_get_reminder_mail(&$message, $params) {
 
-  if (!$params['hash'] || !$params['membership_type']) {
-    throw new \Exception('Params hash or membership_type missing.');
+  if ($params['hash'] && $params['membership_type']) {
+    $descr = memberform_membership_description($params['membership_type']);
+
+    global $base_url;
+    $validate_url = $base_url . '/aanmelden/bevestig/' . $params['hash'];
+
+    $message['subject'] = 'Herinnering: bevestig je aanmelding als ' . $descr;
+    $message['body'] = [];
+    $message['body'][] = '<p>Gisteren heb je je aangemeld als ' . $descr . '.<br />Je hebt je aanmelding echter nog niet bevestigd. Klik op onderstaande link om je aanmelding te bevestigen en deze door te geven aan de SP-ledenadministratie.</p>';
+    $message['body'][] = '<p>' . l($validate_url, $validate_url) . '</p>';
+    $message['body'][] = memberform_get_qline();
   }
-
-  $descr = memberform_membership_description($params['membership_type']);
-
-  global $base_url;
-  $validate_url = $base_url . '/aanmelden/bevestig/' . $params['hash'];
-
-  $message['subject'] = 'Herinnering: bevestig je aanmelding als ' . $descr;
-  $message['body'] = [];
-  $message['body'][] = '<p>Gisteren heb je je aangemeld als ' . $descr . '.<br />Je hebt je aanmelding echter nog niet bevestigd. Klik op onderstaande link om je aanmelding te bevestigen en deze door te geven aan de SP-ledenadministratie.</p>';
-  $message['body'][] = '<p>' . l($validate_url, $validate_url) . '</p>';
-  $message['body'][] = memberform_get_qline();
 }
 
 /**
