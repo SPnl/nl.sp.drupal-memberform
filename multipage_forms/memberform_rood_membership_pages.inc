@@ -183,7 +183,7 @@ function memberform_rood_membership_page_form_validate($form, &$form_state) {
       case 'person_details':
         $age = memberform_get_age($values['page_person_details_birth_date']);
         if ($age > 28) {
-          form_set_error('page_person_details_birth_date', 'Je bent ouder dan 28 jaar en kunt daarom geen lid meer worden van ROOD.');
+          drupal_set_message('<strong>Je bent ouder dan 28 jaar en kunt daarom geen lid meer worden van de jongerenorganisatie ROOD.</strong><br/>Ga verder om je aan te melden als lid van de SP.', 'warning');
         }
         break;
     }
