@@ -246,7 +246,7 @@ function memberform_view_submissions() {
   $half_year_ago_timestamp = time() - (6 * 30 * 24 * 60 * 60);
   $submissions = db_select('memberform_submissions', 's')
     ->fields('s')
-    ->condition('created', $half_year_ago_timestamp, '>')
+    //->condition('created', $half_year_ago_timestamp, '>')
     ->orderBy('created', 'DESC')
     ->execute()
     ->fetchAll();
