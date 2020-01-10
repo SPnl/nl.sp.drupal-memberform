@@ -291,6 +291,11 @@ function memberform_add_membership($data = []) {
     'overwrite'            => 1,
   ];
 
+  if ($data['membership_type'] == 'lid_sp' || $data['membership_type'] == 'lid_sprood') {
+    # Add SP newssubscription.
+    $contact_data['groups'] = array('6741');
+  }
+
   $contact_id = spcivipush_push_contact($contact_data, 'Lidworden formulier');
 
   if ($contact_id !== FALSE && $contact_id !== 'insufficient data') {
