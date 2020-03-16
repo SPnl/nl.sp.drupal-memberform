@@ -597,6 +597,9 @@ function memberform_shared_validation($form, &$form_state) {
       case 'person_details':
         if (isset($values['page_person_details_birth_date'])) {
           // Validate names.
+          if (strlen($values['page_person_details_middle_name']) >= 20) {
+            form_set_error('page_person_details_middle_name', 'Als het tussenvoegsel langer is dan 20 karakters, vul deze dan in bij de achternaam');
+          }
           $name_types = array(
             'first' => 'voornaam',
             'last' => 'achternaam',);
