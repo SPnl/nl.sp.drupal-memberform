@@ -229,7 +229,18 @@ function memberform_form_pre_custom_validate($form, &$form_state) {
     foreach ($values as $key => $value) {
       if (isset($storage['required_fields'][$key])) {
         if (empty($value)) {
-          form_set_error($key, 'Dit moeten we echt weten.');
+          if (!empty($form['input'][$key]) && !empty($form['input'][$key]['#title'])) {
+            $field_title = trim(preg_replace('/<.*>/', '', $form['input'][$key]['#title']));
+            if (str_word_count($field_title) > 1) {
+              form_set_error($key, '"' . $field_title . '" moeten we echt weten.');
+            }
+            else {
+              form_set_error($key, 'Uw ' . strtolower($field_title) . ' moeten we echt weten.');
+            }
+          }
+          else {
+            form_set_error($key, 'Dit moeten we echt weten.');
+          }
         }
       }
     }
