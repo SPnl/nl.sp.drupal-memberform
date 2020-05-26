@@ -132,7 +132,7 @@ function memberform_page_validate_question_form_validate($form, &$form_state) {
     if (!empty($form_state['triggering_element']['#name'])) {
       switch ($form_state['triggering_element']['#name']) {
         case 'submit':
-          $note = check_plain($form_state['values']['why_member']);
+          $note = preg_replace('~[\r\n]+~', ' ', check_plain($form_state['values']['why_member']));
           memberform_store_note($record['hash'], $note);
           if (!empty($record['contact_id'])) {
             memberform_create_note($record['contact_id'], $note);
