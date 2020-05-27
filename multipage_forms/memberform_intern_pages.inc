@@ -311,7 +311,12 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
           $selected_gift_id = empty($values['start']['page_start_select_' . $membership]) ? key($gift_options) : $values['start']['page_start_select_' . $membership];
           $selected_gift = $gift_map[$selected_gift_id];
           // Create image code.
-          $image = file_load($selected_gift->image);
+          if (!empty($selected_gift->image)) {
+            $image = file_load($selected_gift->image);
+          }
+          else {
+            $image = '';
+          }
           $image_styled = empty($image) ? '' : theme('image_style', array('style_name' => $image_style, 'path' => $image->uri));
           $form['input_gift']['page_start_image_' . $selected_gift->id] = array(
             '#markup' => $image_styled,

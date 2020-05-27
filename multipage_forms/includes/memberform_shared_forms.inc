@@ -516,6 +516,9 @@ function memberform_shared_page_gift_form(&$form, &$form_state) {
       if (!empty($gift->image)) {
         $image = file_load($gift->image);
       }
+      else {
+        $image = '';
+      }
       $gift_map[$gift->id] = $gift;
       $image_styled = empty($image) ? '' : theme('image_style', array('style_name' => $image_style, 'path' => $image->uri));
       // Create gift options for select list.
@@ -534,6 +537,9 @@ function memberform_shared_page_gift_form(&$form, &$form_state) {
       // Create image code.
       if (!empty($selected_gift->image)) {
         $image = file_load($selected_gift->image);
+      }
+      else {
+        $image = '';
       }
       $image_styled = empty($image) ? '' : theme('image_style', array('style_name' => $image_style, 'path' => $image->uri));
       $form['input']['page_gift_image_' . $selected_gift->id] = array(
