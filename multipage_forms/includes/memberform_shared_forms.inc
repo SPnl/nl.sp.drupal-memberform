@@ -345,16 +345,29 @@ function memberform_shared_page_contribution_form(&$form, &$form_state) {
     '#attributes' => array('class' => array('contribution-form-element', 'memberform-input')),
   );
 
-  $form['input']['page_contribution_choice'] = array(
-    '#title' => 'Kwartaalbijdrage',
-    '#type' => 'radios',
-    '#options' => array(
+  if ($storage['membership_type'] === 'red_member') {
+    $price_options = array(
+      '1.25' => '1,25',
+      '3' => '3,-',
+      '5' => '5,-',
+      '10' => '10,-',
+      'custom' => 'Anders',
+    );
+  }
+  else {
+    $price_options = array(
       '5' => '5,-',
       '10' => '10,-',
       '20' => '20,-',
       '50' => '50,-',
       'custom' => 'Anders',
-    ),
+    );
+  }
+
+  $form['input']['page_contribution_choice'] = array(
+    '#title' => 'Kwartaalbijdrage',
+    '#type' => 'radios',
+    '#options' =>  $price_options,
     '#required' => TRUE,
     '#ajax' => array(
       'wrapper' => 'memberform_form_wrapper',
@@ -500,7 +513,9 @@ function memberform_shared_page_gift_form(&$form, &$form_state) {
     $form_type = (count($gifts) > 4 ) ? 'select' : 'radios';
 
     foreach ($gifts as $key => $gift) {
-      $image = file_load($gift->image);
+      if (!empty($gift->image)) {
+        $image = file_load($gift->image);
+      }
       $gift_map[$gift->id] = $gift;
       $image_styled = empty($image) ? '' : theme('image_style', array('style_name' => $image_style, 'path' => $image->uri));
       // Create gift options for select list.
@@ -517,7 +532,9 @@ function memberform_shared_page_gift_form(&$form, &$form_state) {
 
     if ($form_type === 'select') {
       // Create image code.
-      $image = file_load($selected_gift->image);
+      if (!empty($selected_gift->image)) {
+        $image = file_load($selected_gift->image);
+      }
       $image_styled = empty($image) ? '' : theme('image_style', array('style_name' => $image_style, 'path' => $image->uri));
       $form['input']['page_gift_image_' . $selected_gift->id] = array(
         '#markup' => $image_styled,

@@ -352,32 +352,34 @@ function memberform_overview_table($form_state) {
         'no_striping' => TRUE,
       );
       // Loop through form elements.
-      foreach ($items as $key => $value) {
-        if (!empty($storage['form_element_definitions'][$key])) {
-          $form_element = $storage['form_element_definitions'][$key];
-          $title = (empty($form_element['#title'])) ? '' : $form_element['#title'];
-          if (strpos($key, 'page_') === 0) {
-            // Parse output of different form element types.
-            switch ($form_element['#type']) {
-              case 'textfield':
-              case 'emailfield':
-              case 'telfield':
-                $rows_tmp[] = array($title, check_plain($value));
-                break;
-              case 'numberfield':
-                $rows_tmp[] = array($title, str_replace('.', ',', memberform_clean_amount($value)));
-                break;
+      if (is_array($items)) {
+        foreach ($items as $key => $value) {
+          if (!empty($storage['form_element_definitions'][$key])) {
+            $form_element = $storage['form_element_definitions'][$key];
+            $title = (empty($form_element['#title'])) ? '' : $form_element['#title'];
+            if (strpos($key, 'page_') === 0) {
+              // Parse output of different form element types.
+              switch ($form_element['#type']) {
+                case 'textfield':
+                case 'emailfield':
+                case 'telfield':
+                  $rows_tmp[] = array($title, check_plain($value));
+                  break;
+                case 'numberfield':
+                  $rows_tmp[] = array($title, str_replace('.', ',', memberform_clean_amount($value)));
+                  break;
 
-              case 'date_select':
-                $date = date("d-m-Y", strtotime($value));
-                $rows_tmp[] = array($title, $date);
-                break;
+                case 'date_select':
+                  $date = date("d-m-Y", strtotime($value));
+                  $rows_tmp[] = array($title, $date);
+                  break;
 
-              case 'select':
-              case 'radios':
-                $display = $form_element['#options'][$value];
-                $rows_tmp[] = array($title, preg_replace('/<img[^>]+\>/i', '', $display));
-                break;
+                case 'select':
+                case 'radios':
+                  $display = $form_element['#options'][$value];
+                  $rows_tmp[] = array($title, preg_replace('/<img[^>]+\>/i', '', $display));
+                  break;
+              }
             }
           }
         }

@@ -344,16 +344,29 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
       '#attributes' => array('class' => array('memberform-input')),
     );
 
+    if ($storage['membership_type'] === 'lid_rood') {
+      $price_options = array(
+        '1.25' => '1,25',
+        '3' => '3,-',
+        '5' => '5,-',
+        '10' => '10,-',
+        'custom' => 'Anders',
+      );
+    }
+    else {
+      $price_options = array(
+        '5' => '5,-',
+        '10' => '10,-',
+        '20' => '20,-',
+        '50' => '50,-',
+        'custom' => 'Anders',
+      );
+    }
+
     $form['input_contribution']['page_start_contribution_choice'] = array(
       '#title' => 'Kwartaalbijdrage lidmaatschap',
       '#type' => 'radios',
-      '#options' => array(
-        '50' => '50,-',
-        '20' => '20,-',
-        '10' => '10,-',
-        '5' => '5,-',
-        'custom' => 'Anders',
-      ),
+      '#options' => $price_options,
       '#required' => TRUE,
       '#ajax' => array(
         'wrapper' => 'memberform_form_wrapper',

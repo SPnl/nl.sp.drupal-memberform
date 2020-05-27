@@ -140,7 +140,8 @@ function memberform_form($form, &$form_state, $form_name) {
   }
 
   // Add messages.
-  $output = theme_status_messages();
+  global $variables;
+  $output = theme_status_messages($variables);
   if (!empty($output)) {
     $form['messages'] = array(
       '#markup' => $output,
