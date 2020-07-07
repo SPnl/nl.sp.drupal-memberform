@@ -135,14 +135,23 @@ function memberform_submit_pending($submission_id = NULL) {
         $contact_id = NULL;
       }
 
-      db_update('memberform_submissions')
-        ->fields([
-          'submitted'  => time(),
-          'errormsg'   => $error,
-          'contact_id' => $contact_id,
-        ])
-        ->condition('id', $record['id'])
-        ->execute();
+      if (empty($error)) {
+        db_update('memberform_submissions')
+          ->fields([
+            'submitted'  => time(),
+            'contact_id' => $contact_id,
+          ])
+          ->condition('id', $record['id'])
+          ->execute();
+      }
+      else {
+        db_update('memberform_submissions')
+          ->fields([
+            'errormsg'   => $error,
+          ])
+          ->condition('id', $record['id'])
+          ->execute();
+      }
     }
   }
   return TRUE;
@@ -460,6 +469,7 @@ function memberform_add_membership($data = []) {
       $error = 'Contact in CiviCRM maken mislukt, onvoldoende data!';
     }
     else {
+      // The variable $contact_id = FALSE.
       $error = 'Contact in CiviCRM maken is mislukt!';
     }
     throw new Exception($error);
