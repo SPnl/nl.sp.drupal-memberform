@@ -140,6 +140,7 @@ function memberform_submit_pending($submission_id = NULL) {
           ->fields([
             'submitted'  => time(),
             'contact_id' => $contact_id,
+            'errormsg'   => '',
           ])
           ->condition('id', $record['id'])
           ->execute();
