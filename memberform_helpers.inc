@@ -333,7 +333,7 @@ function memberform_add_membership($data = []) {
       case 'lid_rood':
         $membership_type_id = variable_get('memberform_id_lid_rood');
         $financial_type_id = variable_get('memberform_id_fintype_rood');
-        $contribution = round((float) $data['contribution'] / 4, 2);
+        $contribution = (float) $data['contribution'];
         break;
 
       case 'tribune':
