@@ -510,7 +510,13 @@ function memberform_shared_page_gift_form(&$form, &$form_state) {
     // Get gifts data.
     $select = "SELECT * FROM {memberform_gifts} WHERE membership_type = :membership AND show_website = 1 ORDER BY position";
     $gifts = db_query($select, array(':membership' => $membership))->fetchAll();
-    $form_type = (count($gifts) > 4 ) ? 'select' : 'radios';
+
+    if ($storage['form_name'] === 'rood_membership') {
+      $form_type = (count($gifts) > 4 ) ? 'select' : 'radios';
+    }
+    else {
+      $form_type = 'radios';
+    }
 
     foreach ($gifts as $key => $gift) {
       if (!empty($gift->image)) {
