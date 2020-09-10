@@ -26,6 +26,7 @@ function memberform_shared_page_start_form(&$form, &$form_state) {
     '#type' => 'emailfield',
     '#title' => 'E-mailadres',
     '#attributes' => array('placeholder' => 'naam@domein.nl'),
+    '#required' => TRUE,
   );
 
   $form['input']['page_start_phone'] = array(
