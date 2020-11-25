@@ -164,38 +164,6 @@ function memberform_shared_page_person_details_form(&$form, &$form_state) {
 }
 
 /**
- * Form definition for red intern page.
- */
-function memberform_shared_page_red_form(&$form, &$form_state) {
-  $storage = $form_state['storage'];
-
-  $form['input'] = array(
-    '#type' => 'fieldset',
-    '#attributes' => array('class' => array('memberform-input')),
-  );
-  if (!empty($storage['membership_type']) && $storage['membership_type'] === 'red_member') {
-    $form['input']['page_only_red'] = array(
-      '#markup' => '<p>Omdat je nog geen 16 bent wordt je lid van ROOD, de actiefste jongerenorganisatie van Nederland. Zodra je 16 bent kan je ook lid worden van de SP.</p><p>Samen met jongeren gaan we de strijd aan voor een betere wereld. We zijn niet bang om onrecht, discriminatie en ongelijkheid te bestrijden waar dat moet gebeuren.</p>',
-    );
-  }
-  else {
-    $form['input']['page_red_intro'] = array(
-      '#markup' => '<p><strong>ROOD is de actiefste jongerenorganisatie van Nederland</strong></p><p>Samen met jongeren gaan we de strijd aan voor een betere wereld. We zijn niet bang om onrecht, discriminatie en ongelijkheid te bestrijden waar dat moet gebeuren.</p>',
-    );
-
-    $form['input']['page_red_membership'] = array(
-      '#title' => 'Rood lidmaatschap (gratis)',
-      '#type' => 'radios',
-      '#options' => array(
-        'sp_and_red_member' => 'Ja, ik wil ook lid worden van ROOD, Jong in de SP!',
-        'sp_member' => 'Nee, ik wil alleen lid worden van de SP',
-      ),
-      '#required' => TRUE,
-    );
-  }
-}
-
-/**
  * Form definition for address page.
  */
 function memberform_shared_page_address_form(&$form, &$form_state) {
@@ -641,8 +609,8 @@ function memberform_shared_validation($form, &$form_state) {
           }
           // Validate age.
           $age = memberform_get_age($values['page_person_details_birth_date']);
-          if ($age < 14) {
-            form_set_error('page_person_details_birth_date', 'Je bent jonger dan 14 jaar, en kunt daarom nog geen lid worden van de SP of ROOD.');
+          if ($age < 16) {
+            form_set_error('page_person_details_birth_date', 'Je bent jonger dan 16 jaar, en kunt daarom nog geen lid worden van de SP of ROOD.');
           }
         }
         break;
@@ -791,35 +759,12 @@ function memberform_shared_submit($form, &$form_state) {
       $storage['values']['start']['page_start_name'] = $values['page_person_details_first_name'] . $middle_name . $last_name;
       if (!in_array($storage['form_name'], array('tribune', 'spanning'))) {
         $age = memberform_get_age($values['page_person_details_birth_date']);
-        if ($age < 16) {
-          $storage['membership_type'] = 'red_member';
-          $storage['next_page'] = 'red';
-        }
-        elseif ($age <= 27) {
-          if ($storage['form_name'] === 'rood_membership') {
-            $storage['membership_type'] = 'sp_and_red_member';
-            $storage['next_page'] = 'red';
-          }
-          else {
-            $storage['membership_type'] = '';
-            $storage['next_page'] = 'red';
-          }
-        }
-        else {
-          $storage['next_page'] = 'address';
-          $storage['membership_type'] = 'sp_member';
-        }
+        $storage['next_page'] = 'address';
+        $storage['membership_type'] = 'sp_member';
       }
       else {
         $storage['next_page'] = 'address';
       }
-      break;
-
-    case 'red':
-    if (empty($storage['membership_type'])) {
-        $storage['membership_type'] = $values['page_red_membership'];
-      }
-      $storage['next_page'] = 'address';
       break;
 
     case 'address':

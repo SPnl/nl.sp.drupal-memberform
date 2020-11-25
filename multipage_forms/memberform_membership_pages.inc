@@ -47,7 +47,6 @@ function memberform_membership_settings($variable_name) {
       'start' => 'Welkom',
       //'quickfinish' => '',
       'person_details' => 'Persoonsgegevens',
-      'red' => 'ROOD lidmaatschap',
       'address' => 'Adresgegevens',
       'contribution' => 'Persoonlijke bijdrage',
       'gift' => 'Welkomstgeschenk',
@@ -85,13 +84,6 @@ function memberform_membership_page_quickfinish_form(&$form, &$form_state) {
  */
 function memberform_membership_page_person_details_form(&$form, &$form_state) {
   memberform_shared_page_person_details_form($form, $form_state);
-}
-
-/**
- * Form definition for red membership page.
- */
-function memberform_membership_page_red_form(&$form, &$form_state) {
-  memberform_shared_page_red_form($form, $form_state);
 }
 
 /**
