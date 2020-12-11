@@ -405,7 +405,7 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
       '#required' => TRUE,
       '#options' => array(
         'incasso' => 'Automatische incasso',
-        'acceptgiro' => 'Acceptgiro',
+        'acceptgiro' => 'Factuur per e-mail',
       ),
       '#name' => 'page_start_contribution_payment_method',
       '#ajax' => array(
@@ -425,7 +425,7 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
         case 'tribune':
           $options = array(
             'incasso_5' => 'Automatische incasso, € 5 per kwartaal',
-            'acceptgiro_24' => 'Acceptgiro, € 24 per jaar',
+            'acceptgiro_24' => 'Factuur per e-mail, € 24 per jaar',
           );
           $form['input_contribution']['page_start_tribune_payment_method'] = array(
             '#title' => 'Betalingsgegevens Tribune',
@@ -443,13 +443,13 @@ function memberform_intern_page_start_form(&$form, &$form_state) {
           if ($is_member) {
             $options = array(
               'incasso_12' => 'Automatische incasso, € 12 per jaar (niet leden betalen € 20)',
-              'acceptgiro_12' => 'Acceptgiro, € 12 per jaar (niet leden betalen € 24)',
+              'acceptgiro_12' => 'Factuur per e-mail, € 12 per jaar (niet leden betalen € 24)',
             );
           }
           else {
             $options = array(
               'incasso_20' => 'Automatische incasso € 20 (€ 12 voor leden)',
-              'acceptgiro_24' => 'Acceptgiro € 24 (€ 12 voor leden)',
+              'acceptgiro_24' => 'Factuur per e-mail € 24 (€ 12 voor leden)',
             );
           }
           $form['input_contribution']['page_start_spanning_payment_method'] = array(
